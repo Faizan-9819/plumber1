@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<!-- saved from url=(0049)https://templates.getgrowthrocket.com/plumber-01/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style>
+    .sc-placeholder{background:rgba(255,255,255,.3);border:1px solid rgba(0,0,0,.5);
+      border-radius:2px;box-sizing:border-box;overflow:hidden}
+    @keyframes sc-shine{0%{background-position:100% 50%}100%{background-position:0% 50%}}
+    html.sc-dc-streaming .sc-placeholder,
+    html.sc-dc-streaming .sc-interp.sc-missing{position:relative;
+      background:color-mix(in srgb,currentColor 5%,transparent);
+      border-color:transparent}
+    html.sc-dc-streaming .sc-placeholder::before,
+    html.sc-dc-streaming .sc-interp.sc-missing::before{content:'';
+      position:absolute;inset:0;pointer-events:none;
+      background:linear-gradient(90deg,rgba(217,119,87,0) 25%,rgba(247,225,211,.95) 37%,rgba(217,119,87,0) 63%);
+      background-size:400% 100%;animation:sc-shine 1.4s ease infinite}
+    html.sc-dc-streaming .sc-placeholder:nth-child(n+9 of .sc-placeholder)::before,
+    html.sc-dc-streaming .sc-interp.sc-missing:nth-child(n+9 of .sc-interp.sc-missing)::before{animation:none;
+      background:color-mix(in srgb,currentColor 8%,transparent)}
+    .sc-placeholder-error{padding:4px 8px;font:11px/1.4 ui-monospace,monospace;
+      color:rgba(0,0,0,.7);word-break:break-word}
+    .sc-interp.sc-missing{display:inline-block;width:2em;height:1em;overflow:hidden;
+      vertical-align:text-bottom;background:rgba(255,255,255,.3);border:1px solid rgba(0,0,0,.5);
+      border-radius:2px;box-sizing:border-box;color:transparent;
+      user-select:none}
+    .sc-interp.sc-unresolved{font-family:ui-monospace,monospace;font-size:.85em;
+      color:rgba(0,0,0,.5);background:rgba(0,0,0,.05);border-radius:3px;
+      padding:0 3px}
+    .sc-host.sc-has-error{position:relative}
+    .sc-logic-error{position:absolute;top:8px;left:8px;z-index:2147483647;max-width:60ch;
+      padding:6px 10px;background:#b00020;color:#fff;font:12px/1.4 ui-monospace,monospace;
+      border-radius:4px;white-space:pre-wrap;pointer-events:none}
+    /* Mirrors PRINT_BASELINE_CSS in apps/web deck-stage-export.ts — keep both
+       in sync until dc-runtime regains a build step. */
+    @media print {
+      @page { margin: 0.5cm; }
+      figure, table { break-inside: avoid; }
+      #dc-root, #dc-root > .sc-host { height: auto; }
+      *, *::before, *::after {
+        print-color-adjust: exact; -webkit-print-color-adjust: exact;
+        backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
+        animation-delay: -99s !important; animation-duration: .001s !important;
+        animation-iteration-count: 1 !important; animation-fill-mode: both !important;
+        animation-play-state: running !important; transition-duration: 0s !important;
+      }
+    }
+  </style>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./plumber-temp.com_files/support.js.download"></script><style>x-dc{display:none!important}</style><script src="./plumber-temp.com_files/react.production.min.js.download" integrity="sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z" crossorigin="anonymous"></script><script src="./plumber-temp.com_files/react-dom.production.min.js.download" integrity="sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1" crossorigin="anonymous"></script>
+<style></style><style type="text/css" id="mytempCss">._8mqQwQ { display: none; } ._1TWLMK.icF5zO { opacity: 0.01; }</style><link rel="preconnect" href="https://fonts.googleapis.com/" data-dc-tpl="1"><link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" data-dc-tpl="2"><link href="./plumber-temp.com_files/css2" rel="stylesheet" data-dc-tpl="3"><style data-dc-tpl="4">
+:root{--ink:#1F2430;--muted:#5C6473;--bg:#F7F8FB;--card:#FFFFFF;--soft:#EDF2F7;--line:#E2EAF2;--accent:#4F7EF2;--accent-2:#3DB4D9;--grad:linear-gradient(115deg,#5D62F3 0%,#4E7BF0 52%,#38B6D8 100%);--grad-cta:linear-gradient(90deg,#6465F2 0%,#47B9DE 100%);--grad-cta-hover:linear-gradient(90deg,#4F57D8 0%,#369FC5 100%);--grad-soft:linear-gradient(135deg,#F6F8FC 0%,#EDF2F7 45%,#E2EBF3 100%)}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:'Hanken Grotesk',system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font-family:inherit}
+::selection{background:#4F7EF2;color:#fff}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+@keyframes floatY2{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+[data-gal]::-webkit-scrollbar{display:none}
+</style></head>
+<body cz-shortcut-listen="true">
+<div id="dc-root"><div class="sc-host" data-sc-name="Root"><div data-dc-tpl="5" data-screen-label="Plumber Homepage" style="position: relative; overflow-x: clip; --grad: linear-gradient(115deg,#5D62F3 0%,#4E7BF0 52%,#38B6D8 100%); --grad-soft: linear-gradient(135deg,#F6F8FC 0%,#EDF2F7 45%,#E2EBF3 100%); --accent: #4F7EF2; --accent-2: #3DB4D9;"><div data-dc-tpl="7" style="background: var(--ink); color: rgb(237, 237, 242); font-size: 13px;">
+  <div data-dc-tpl="8" style="max-width: 1180px; margin: 0px auto; padding: 9px 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
+    <div data-dc-tpl="9" style="display: flex; align-items: center; gap: 20px; flex-wrap: wrap;">
+      <a data-dc-tpl="10" href="tel:+31201234567" style="display: flex; align-items: center; gap: 7px; font-weight: 600;"><span data-dc-tpl="11" style="color: var(--accent-2); font-size: 15px;">✆</span> 020 123 4567</a>
+      <span data-dc-tpl="12" style="opacity: 0.4;">·</span>
+      <span data-dc-tpl="13" style="opacity: 0.82;">hello@aquaflow.nl</span>
+    </div>
+    <div data-dc-tpl="14" style="display: flex; align-items: center; gap: 8px; opacity: 0.92;">
+      <span data-dc-tpl="15" style="width: 7px; height: 7px; border-radius: 999px; background: rgb(52, 211, 153); box-shadow: rgba(52, 211, 153, 0.18) 0px 0px 0px 4px;"></span>
+      24/7 emergency line · open now, Mon–Sun
+    </div>
+  </div></div><header data-dc-tpl="16" style="position: sticky; top: 0px; z-index: 90; padding: 14px 16px; background: rgba(247, 248, 251, 0.72); backdrop-filter: blur(14px);">
+  <div data-dc-tpl="17" style="max-width: 1200px; margin: 0px auto;">
+    <div data-dc-tpl="18" style="display: flex; align-items: center; justify-content: space-between; gap: 24px; background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 12px 14px 12px 26px; box-shadow: rgba(20, 22, 30, 0.2) 0px 4px 16px -10px; transition: padding 0.3s, box-shadow 0.3s;">
+      <a data-dc-tpl="19" href="https://templates.getgrowthrocket.com/plumber-01/#home" style="display: flex; align-items: baseline; gap: 1px; font-weight: 800; font-size: 25px; letter-spacing: -0.02em;">
+        <span data-dc-tpl="20" style="color: var(--ink);">Aqua</span><span data-dc-tpl="21" style="background-image: ; background-position-x: ; background-position-y: ; background-size: ; background-repeat: ; background-attachment: ; background-origin: ; background-clip: text; background-color: ; color: transparent; font-style: italic;">Flow</span>
+      </a>
+      <nav data-dc-tpl="22" style="display: flex; gap: 30px; align-items: center;">
+        
+          <a data-dc-tpl="24" href="https://templates.getgrowthrocket.com/plumber-01/#home" class="scp0" style="font-size: 15.5px; font-weight: 500; color: rgb(58, 59, 65);"><span class="sc-interp">Home</span></a>
+        
+          <a data-dc-tpl="24" href="https://templates.getgrowthrocket.com/plumber-01/#services" class="scp0" style="font-size: 15.5px; font-weight: 500; color: rgb(58, 59, 65);"><span class="sc-interp">Services</span></a>
+        
+          <a data-dc-tpl="24" href="https://templates.getgrowthrocket.com/plumber-01/#about" class="scp0" style="font-size: 15.5px; font-weight: 500; color: rgb(58, 59, 65);"><span class="sc-interp">About</span></a>
+        
+          <a data-dc-tpl="24" href="https://templates.getgrowthrocket.com/plumber-01/#reviews" class="scp0" style="font-size: 15.5px; font-weight: 500; color: rgb(58, 59, 65);"><span class="sc-interp">Reviews</span></a>
+        
+          <a data-dc-tpl="24" href="https://templates.getgrowthrocket.com/plumber-01/#areas" class="scp0" style="font-size: 15.5px; font-weight: 500; color: rgb(58, 59, 65);"><span class="sc-interp">Areas</span></a>
+        
+          <a data-dc-tpl="24" href="https://templates.getgrowthrocket.com/plumber-01/#faq" class="scp0" style="font-size: 15.5px; font-weight: 500; color: rgb(58, 59, 65);"><span class="sc-interp">FAQ</span></a>
+        
+          <a data-dc-tpl="24" href="https://templates.getgrowthrocket.com/plumber-01/#contact" class="scp0" style="font-size: 15.5px; font-weight: 500; color: rgb(58, 59, 65);"><span class="sc-interp">Contact</span></a>
+        
+      </nav>
+      <div data-dc-tpl="25" style="display: flex; align-items: center; gap: 12px;">
+        <a data-dc-tpl="26" href="tel:+31201234567" style="display: inline-flex; align-items: center; gap: 7px; font-weight: 700; font-size: 15px; color: var(--ink);">✆ 020 123 4567</a>
+        <a data-dc-tpl="27" href="https://templates.getgrowthrocket.com/plumber-01/#contact" class="scp1" style="display: inline-flex; align-items: center; gap: 8px; background: var(--grad-cta); color: rgb(255, 255, 255); font-weight: 700; font-size: 15px; padding: 12px 22px; border-radius: 999px; box-shadow: rgba(71, 107, 222, 0.55) 0px 10px 24px -10px;">Book Appointment</a>
+        <button data-dc-tpl="28" aria-label="Menu" style="display: none;">
+          <span data-dc-tpl="29" style="display: block; width: 20px; height: 2px; background: var(--ink); border-radius: 2px;"></span>
+          <span data-dc-tpl="30" style="display: block; width: 20px; height: 2px; background: var(--ink); border-radius: 2px;"></span>
+          <span data-dc-tpl="31" style="display: block; width: 14px; height: 2px; background: var(--ink); border-radius: 2px;"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+  </header><section data-dc-tpl="37" id="home" style="position: relative; padding: clamp(26px, 4vw, 52px) 0px clamp(48px, 7vw, 92px);">
+  <svg data-dc-tpl="38" viewBox="0 0 600 600" fill="none" style="position: absolute; right: -60px; top: 40px; width: min(46vw, 560px); height: auto; opacity: 0.5; z-index: 0; pointer-events: none;">
+    <defs data-dc-tpl="39"><lineargradient data-dc-tpl="40" id="curveA" x1="0" y1="0" x2="1" y2="1"><stop data-dc-tpl="41" offset="0" stop-color="#5D62F3"></stop><stop data-dc-tpl="42" offset="1" stop-color="#38B6D8"></stop></lineargradient></defs>
+    <path data-dc-tpl="43" d="M40 540 C 360 560 540 380 470 220 C 430 120 250 120 270 230 C 285 320 470 300 540 180 C 590 90 540 30 470 30" stroke="url(#curveA)" stroke-width="2.4" stroke-linecap="round"></path>
+  </svg>
+  <div data-dc-tpl="44" style="max-width: 1180px; margin: 0px auto; padding: 0px 24px; position: relative; z-index: 1;">
+    <div data-dc-tpl="45" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: clamp(34px, 5vw, 68px); align-items: center;">
+      <div data-dc-tpl="46">
+        <div data-dc-tpl="47" style="display: inline-flex; align-items: center; gap: 9px; background: var(--card); border: 1px solid var(--line); padding: 8px 15px 8px 11px; border-radius: 999px; font-size: 13px; font-weight: 600; letter-spacing: 0.02em; margin-bottom: 24px; box-shadow: rgba(20, 22, 30, 0.3) 0px 6px 18px -12px;">
+          <span data-dc-tpl="48" style="display: inline-flex; align-items: center; gap: 6px; background: var(--grad); color: rgb(255, 255, 255); padding: 4px 10px; border-radius: 999px; font-size: 11.5px; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 700;">24/7</span>
+          Emergency plumbing across Amsterdam
+        </div>
+        <h1 data-dc-tpl="49" style="font-weight: 800; font-size: clamp(40px, 6vw, 72px); line-height: 1.03; letter-spacing: -0.032em; margin: 0px 0px 22px;">Fast, reliable plumbing —<br data-dc-tpl="50"><span data-dc-tpl="51" style="background-image: ; background-position-x: ; background-position-y: ; background-size: ; background-repeat: ; background-attachment: ; background-origin: ; background-clip: text; background-color: ; color: transparent; font-style: italic;">done right</span>, first time.</h1>
+        <p data-dc-tpl="52" style="font-size: clamp(17px, 1.5vw, 19px); line-height: 1.62; color: var(--muted); max-width: 540px; margin: 0px 0px 30px;">Certified local plumbers for repairs, installations and emergencies. Same-day appointments across Amsterdam and the surrounding region — with clear, fixed pricing before we start.</p>
+        <div data-dc-tpl="53" style="display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 30px;">
+          <a data-dc-tpl="54" href="https://templates.getgrowthrocket.com/plumber-01/#contact" class="scp1" style="display: inline-flex; align-items: center; gap: 9px; background: var(--grad-cta); color: rgb(255, 255, 255); font-weight: 700; font-size: 17px; padding: 16px 28px; border-radius: 999px; box-shadow: rgba(71, 107, 222, 0.55) 0px 16px 32px -12px;">Book Appointment <span data-dc-tpl="55" style="font-size: 18px;">→</span></a>
+          <a data-dc-tpl="56" href="tel:+31201234567" class="scp3" style="display: inline-flex; align-items: center; gap: 10px; background: var(--card); color: var(--ink); font-weight: 700; font-size: 17px; padding: 16px 26px; border-radius: 999px; border: 1.5px solid var(--line);"><span data-dc-tpl="57" style="color: var(--accent);">✆</span> Call the emergency line</a>
+        </div>
+        <div data-dc-tpl="58" style="display: flex; flex-wrap: wrap; gap: 8px 10px;">
+          <span data-dc-tpl="59" style="display: inline-flex; align-items: center; gap: 7px; font-size: 14px; font-weight: 600; color: rgb(70, 71, 77); background: var(--card); border: 1px solid var(--line); padding: 8px 14px; border-radius: 999px;"><span data-dc-tpl="60" style="color: var(--accent-2);">✓</span> Certified &amp; insured</span>
+          <span data-dc-tpl="61" style="display: inline-flex; align-items: center; gap: 7px; font-size: 14px; font-weight: 600; color: rgb(70, 71, 77); background: var(--card); border: 1px solid var(--line); padding: 8px 14px; border-radius: 999px;"><span data-dc-tpl="62" style="color: var(--accent-2);">✓</span> Same-day service</span>
+          <span data-dc-tpl="63" style="display: inline-flex; align-items: center; gap: 7px; font-size: 14px; font-weight: 600; color: rgb(70, 71, 77); background: var(--card); border: 1px solid var(--line); padding: 8px 14px; border-radius: 999px;"><span data-dc-tpl="64" style="color: var(--accent-2);">✓</span> Fixed pricing</span>
+        </div>
+      </div>
+      <div data-dc-tpl="65" style="position: relative;">
+        <div data-dc-tpl="66" style="position: relative; border-radius: 30px; overflow: hidden; min-height: clamp(380px, 46vw, 520px); box-shadow: rgba(40, 40, 80, 0.4) 0px 40px 80px -40px; background-image: url(&quot;https://plus.unsplash.com/premium_photo-1663013675008-bd5a7898ac4f?auto=format&amp;fit=crop&amp;w=900&amp;h=1000&amp;q=72&quot;); background-size: cover; background-position: center center;"></div>
+        <div data-dc-tpl="67" style="position: absolute; top: 20px; left: -14px; background: var(--card); border-radius: 18px; padding: 14px 16px; box-shadow: rgba(20, 22, 30, 0.4) 0px 22px 44px -20px; display: flex; align-items: center; gap: 12px; animation: 6s ease-in-out 0s infinite normal none running floatY;">
+          <span data-dc-tpl="68" style="width: 42px; height: 42px; border-radius: 12px; background: var(--grad); display: flex; align-items: center; justify-content: center; color: rgb(255, 255, 255); font-size: 19px; font-weight: 800;">24/7</span>
+          <div data-dc-tpl="69"><div data-dc-tpl="70" style="font-weight: 800; font-size: 15px; line-height: 1.1;">Available now</div><div data-dc-tpl="71" style="font-size: 12.5px; color: var(--muted);">Emergency call-outs</div></div>
+        </div>
+        <div data-dc-tpl="72" style="position: absolute; bottom: 24px; right: -14px; background: var(--card); border-radius: 18px; padding: 14px 17px; box-shadow: rgba(20, 22, 30, 0.4) 0px 22px 44px -20px; animation: 7s ease-in-out 0s infinite normal none running floatY2;">
+          <div data-dc-tpl="73" style="display: flex; align-items: center; gap: 6px;"><span data-dc-tpl="74" style="color: rgb(245, 178, 58); font-size: 15px; letter-spacing: 1px;">★★★★★</span></div>
+          <div data-dc-tpl="75" style="font-weight: 800; font-size: 15px; margin-top: 3px;">4.9 · 250+ reviews</div>
+          <div data-dc-tpl="76" style="font-size: 12px; color: var(--muted);">Verified homeowners &amp; businesses</div>
+        </div>
+      </div>
+    </div>
+  </div></section><section data-dc-tpl="77" id="about" style="padding: clamp(56px, 8vw, 104px) 0px;">
+  <div data-dc-tpl="78" style="max-width: 1180px; margin: 0px auto; padding: 0px 24px;">
+    <div data-dc-tpl="79" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr)); gap: clamp(34px, 5vw, 72px); align-items: center;">
+      <div data-dc-tpl="80">
+        <div data-dc-tpl="81" style="font-weight: 700; font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: 18px;">Your local plumber</div>
+        <h2 data-dc-tpl="82" style="font-weight: 800; font-size: clamp(28px, 4vw, 46px); line-height: 1.07; letter-spacing: -0.028em; margin: 0px 0px 22px;">A modern plumbing service Amsterdam <span data-dc-tpl="83" style="background-image: ; background-position-x: ; background-position-y: ; background-size: ; background-repeat: ; background-attachment: ; background-origin: ; background-clip: text; background-color: ; color: transparent; font-style: italic;">actually trusts</span>.</h2>
+        <p data-dc-tpl="84" style="font-size: 17.5px; line-height: 1.66; color: var(--muted); margin: 0px 0px 18px;">For over 15 years, AquaFlow has handled everything from a dripping tap to full commercial maintenance — for homeowners, landlords and businesses across the city. Same team, same standards, every visit.</p>
+        <p data-dc-tpl="85" style="font-size: 17.5px; line-height: 1.66; color: var(--muted); margin: 0px 0px 30px;">No call-out tricks, no mess left behind. Just qualified engineers who turn up on time, explain the problem clearly and fix it properly — backed by a written guarantee.</p>
+        <div data-dc-tpl="86" style="display: flex; flex-wrap: wrap; gap: 26px;">
+          <div data-dc-tpl="87"><div data-dc-tpl="88" style="font-weight: 800; font-size: 18px;">Residential &amp; commercial</div><div data-dc-tpl="89" style="font-size: 14px; color: var(--muted);">One trusted team for both</div></div>
+          <div data-dc-tpl="90" style="width: 1px; background: var(--line);"></div>
+          <div data-dc-tpl="91"><div data-dc-tpl="92" style="font-weight: 800; font-size: 18px;">Written guarantee</div><div data-dc-tpl="93" style="font-size: 14px; color: var(--muted);">On every repair we make</div></div>
+        </div>
+      </div>
+      <div data-dc-tpl="94" style="position: relative;">
+        <div data-dc-tpl="95" style="border-radius: 28px; overflow: hidden; min-height: clamp(320px, 38vw, 440px); background-image: url(&quot;https://plus.unsplash.com/premium_photo-1750594941294-91dcf3896ad5?auto=format&amp;fit=crop&amp;w=900&amp;h=760&amp;q=72&quot;); background-size: cover; background-position: center center;"></div>
+        <div data-dc-tpl="96" style="position: absolute; left: 18px; bottom: 18px; background: var(--card); border-radius: 16px; padding: 13px 16px; box-shadow: rgba(20, 22, 30, 0.35) 0px 22px 44px -22px; display: flex; align-items: center; gap: 12px;">
+          <div data-dc-tpl="97" style="display: flex;">
+            <span data-dc-tpl="98" style="width: 34px; height: 34px; border-radius: 999px; background: var(--grad-soft); border: 2px solid rgb(255, 255, 255);"></span>
+            <span data-dc-tpl="99" style="width: 34px; height: 34px; border-radius: 999px; background: var(--grad); border: 2px solid rgb(255, 255, 255); margin-left: -12px;"></span>
+            <span data-dc-tpl="100" style="width: 34px; height: 34px; border-radius: 999px; background: var(--grad-soft); border: 2px solid rgb(255, 255, 255); margin-left: -12px;"></span>
+          </div>
+          <div data-dc-tpl="101"><div data-dc-tpl="102" style="font-weight: 800; font-size: 14px;">Certified engineers</div><div data-dc-tpl="103" style="font-size: 12.5px; color: var(--muted);">Vetted &amp; fully insured</div></div>
+        </div>
+      </div>
+    </div>
+  </div></section><section data-dc-tpl="104" style="padding: 0px 0px clamp(40px, 6vw, 72px);">
+  <div data-dc-tpl="105" style="max-width: 1180px; margin: 0px auto; padding: 0px 24px;">
+    <div data-dc-tpl="106" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr)); gap: 18px;">
+      
+        <div data-dc-tpl="108" style="background: var(--card); border: 1px solid var(--line); border-radius: 22px; padding: 30px 26px;">
+          <div data-dc-tpl="109" style="font-weight: 800; font-size: clamp(34px, 3.6vw, 46px); line-height: 1; letter-spacing: -0.03em; background-image: ; background-position-x: ; background-position-y: ; background-size: ; background-repeat: ; background-attachment: ; background-origin: ; background-clip: text; background-color: ; color: transparent;"><span class="sc-interp">15+</span></div>
+          <div data-dc-tpl="110" style="font-weight: 700; font-size: 16px; margin-top: 12px;"><span class="sc-interp">Years of experience</span></div>
+          <div data-dc-tpl="111" style="font-size: 13.5px; color: var(--muted); margin-top: 3px;"><span class="sc-interp">Serving Amsterdam since 2010</span></div>
+        </div>
+      
+        <div data-dc-tpl="108" style="background: var(--card); border: 1px solid var(--line); border-radius: 22px; padding: 30px 26px;">
+          <div data-dc-tpl="109" style="font-weight: 800; font-size: clamp(34px, 3.6vw, 46px); line-height: 1; letter-spacing: -0.03em; background-image: ; background-position-x: ; background-position-y: ; background-size: ; background-repeat: ; background-attachment: ; background-origin: ; background-clip: text; background-color: ; color: transparent;"><span class="sc-interp">12,000+</span></div>
+          <div data-dc-tpl="110" style="font-weight: 700; font-size: 16px; margin-top: 12px;"><span class="sc-interp">Jobs completed</span></div>
+          <div data-dc-tpl="111" style="font-size: 13.5px; color: var(--muted); margin-top: 3px;"><span class="sc-interp">Homes &amp; businesses</span></div>
+        </div>
+      
+        <div data-dc-tpl="108" style="background: var(--card); border: 1px solid var(--line); border-radius: 22px; padding: 30px 26px;">
+          <div data-dc-tpl="109" style="font-weight: 800; font-size: clamp(34px, 3.6vw, 46px); line-height: 1; letter-spacing: -0.03em; background-image: ; background-position-x: ; background-position-y: ; background-size: ; background-repeat: ; background-attachment: ; background-origin: ; background-clip: text; background-color: ; color: transparent;"><span class="sc-interp">4.9/5</span></div>
+          <div data-dc-tpl="110" style="font-weight: 700; font-size: 16px; margin-top: 12px;"><span class="sc-interp">Average rating</span></div>
+          <div data-dc-tpl="111" style="font-size: 13.5px; color: var(--muted); margin-top: 3px;"><span class="sc-interp">From 250+ reviews</span></div>
+        </div>
+      
+        <div data-dc-tpl="108" style="background: var(--card); border: 1px solid var(--line); border-radius: 22px; padding: 30px 26px;">
+          <div data-dc-tpl="109" style="font-weight: 800; font-size: clamp(34px, 3.6vw, 46px); line-height: 1; letter-spacing: -0.03em; background-image: ; background-position-x: ; background-position-y: ; background-size: ; background-repeat: ; background-attachment: ; background-origin: ; background-clip: text; background-color: ; color: transparent;"><span class="sc-interp">~60 min</span></div>
+          <div data-dc-tpl="110" style="font-weight: 700; font-size: 16px; margin-top: 12px;"><span class="sc-interp">Average response</span></div>
+          <div data-dc-tpl="111" style="font-size: 13.5px; color: var(--muted); margin-top: 3px;"><span class="sc-interp">For genuine emergencies</span></div>
+        </div>
+      
+    </div>
+  </div></section><section data-dc-tpl="112" id="services" style="padding: clamp(56px, 8vw, 100px) 0px; background: var(--card);">
+  <div data-dc-tpl="113" style="max-width: 1180px; margin: 0px auto; padding: 0px 24px;">
+    <div data-dc-tpl="114" style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 42px;">
+      <div data-dc-tpl="115" style="max-width: 620px;">
+        <div data-dc-tpl="116" style="font-weight: 700; font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px;">What we do</div>
+        <h2 data-dc-tpl="117" style="font-weight: 800; font-size: clamp(30px, 4.4vw, 50px); line-height: 1.05; letter-spacing: -0.028em; margin: 0px;">Plumbing &amp; heating, covered end to end</h2>
+      </div>
+      <p data-dc-tpl="118" style="font-size: 16.5px; line-height: 1.6; color: var(--muted); max-width: 340px; margin: 0px;">From a 2am burst pipe to a planned bathroom refit — one number, one reliable team for it all.</p>
+    </div>
+    <div data-dc-tpl="119" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 270px), 1fr)); gap: 18px;">
+      
+        <div data-dc-tpl="121" class="scp4" style="border-radius: 24px; padding: 18px; transition: transform 0.3s, box-shadow 0.3s; background: var(--grad); color: rgb(255, 255, 255); box-shadow: rgba(60, 60, 140, 0.7) 0px 30px 56px -30px;">
+          <div data-dc-tpl="122" style="border-radius: 16px; height: 130px; margin-bottom: 18px; background-image: url(&quot;https://plus.unsplash.com/premium_photo-1750594941294-91dcf3896ad5?auto=format&amp;fit=crop&amp;w=520&amp;h=360&amp;q=72&quot;); background-size: cover; background-position: center center;"></div>
+          <div data-dc-tpl="123" style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+            <h3 data-dc-tpl="124" style="font-weight: 800; font-size: 19px; letter-spacing: -0.01em; margin: 0px;"><span class="sc-interp">Emergency Plumbing</span></h3>
+            <span data-dc-tpl="125" style="font-size: 17px; color: rgb(255, 255, 255); flex: 0 0 auto;">↗</span>
+          </div>
+          <p data-dc-tpl="126" style="font-size: 14.5px; line-height: 1.55; margin: 9px 0px 0px; color: rgba(255, 255, 255, 0.9);"><span class="sc-interp">Burst pipes, floods and urgent failures — a certified plumber at your door, day or night.</span></p>
+          <span data-dc-tpl="128" style="display: inline-block; margin-top: 14px; font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; background: rgba(255, 255, 255, 0.18); border: 1px solid rgba(255, 255, 255, 0.4); color: rgb(255, 255, 255); padding: 5px 11px; border-radius: 999px;">Most requested</span>
+        </div>
+      
+        <div data-dc-tpl="121" class="scp4" style="border-radius: 24px; padding: 18px; transition: transform 0.3s, box-shadow 0.3s; background: var(--card); border: 1px solid var(--line);">
+          <div data-dc-tpl="122" style="border-radius: 16px; height: 130px; margin-bottom: 18px; background-image: url(&quot;https://plus.unsplash.com/premium_photo-1750594942711-58fa23b80518?auto=format&amp;fit=crop&amp;w=520&amp;h=360&amp;q=72&quot;); background-size: cover; background-position: center center;"></div>
+          <div data-dc-tpl="123" style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+            <h3 data-dc-tpl="124" style="font-weight: 800; font-size: 19px; letter-spacing: -0.01em; margin: 0px;"><span class="sc-interp">Leak Detection &amp; Repair</span></h3>
+            <span data-dc-tpl="125" style="font-size: 17px; color: var(--accent); flex: 0 0 auto;">↗</span>
+          </div>
+          <p data-dc-tpl="126" style="font-size: 14.5px; line-height: 1.55; margin: 9px 0px 0px; color: var(--muted);"><span class="sc-interp">Pinpoint hidden leaks fast with non-invasive tools, then fix them for good.</span></p>
+          
+        </div>
+      
+        <div data-dc-tpl="121" class="scp4" style="border-radius: 24px; padding: 18px; transition: transform 0.3s, box-shadow 0.3s; background: var(--card); border: 1px solid var(--line);">
+          <div data-dc-tpl="122" style="border-radius: 16px; height: 130px; margin-bottom: 18px; background-image: url(&quot;https://plus.unsplash.com/premium_photo-1750594941733-778d58dca208?auto=format&amp;fit=crop&amp;w=520&amp;h=360&amp;q=72&quot;); background-size: cover; background-position: center center;"></div>
+          <div data-dc-tpl="123" style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+            <h3 data-dc-tpl="124" style="font-weight: 800; font-size: 19px; letter-spacing: -0.01em; margin: 0px;"><span class="sc-interp">Drain Unblocking</span></h3>
+            <span data-dc-tpl="125" style="font-size: 17px; color: var(--accent); flex: 0 0 auto;">↗</span>
+          </div>
+          <p data-dc-tpl="126" style="font-size: 14.5px; line-height: 1.55; margin: 9px 0px 0px; color: var(--muted);"><span class="sc-interp">Blocked sinks, toilets and drains cleared quickly, cleanly and without the mess.</span></p>
+          
+        </div>
+      
+        <div data-dc-tpl="121" class="scp4" style="border-radius: 24px; padding: 18px; transition: transform 0.3s, box-shadow 0.3s; background: var(--card); border: 1px solid var(--line);">
+          <div data-dc-tpl="122" style="border-radius: 16px; height: 130px; margin-bottom: 18px; background-image: url(&quot;https://plus.unsplash.com/premium_photo-1663013675008-bd5a7898ac4f?auto=format&amp;fit=crop&amp;w=520&amp;h=360&amp;q=72&quot;); background-size: cover; background-position: center center;"></div>
+          <div data-dc-tpl="123" style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+            <h3 data-dc-tpl="124" style="font-weight: 800; font-size: 19px; letter-spacing: -0.01em; margin: 0px;"><span class="sc-interp">Pipe Repair &amp; Replacement</span></h3>
+            <span data-dc-tpl="125" style="font-size: 17px; color: var(--accent); flex: 0 0 auto;">↗</span>
+          </div>
+          <p data-dc-tpl="126" style="font-size: 14.5px; line-height: 1.55; margin: 9px 0px 0px; color: var(--muted);"><span class="sc-interp">Worn, corroded or damaged pipework repaired or fully replaced to last.</span></p>
+          
+        </div>
+      
+        <div data-dc-tpl="121" class="scp4" style="border-radius: 24px; padding: 18px; transition: transform 0.3s, box-shadow 0.3s; background: var(--card); border: 1px solid var(--line);">
+          <div data-dc-tpl="122" style="border-radius: 16px; height: 130px; margin-bottom: 18px; background-image: url(&quot;https://plus.unsplash.com/premium_photo-1750594940989-5c93275f7b64?auto=format&amp;fit=crop&amp;w=520&amp;h=360&amp;q=72&quot;); background-size: cover; background-position: center center;"></div>
+          <div data-dc-tpl="123" style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+            <h3 data-dc-tpl="124" style="font-weight: 800; font-size: 19px; letter-spacing: -0.01em; margin: 0px;"><span class="sc-interp">Bathroom &amp; Kitchen</span></h3>
+            <span data-dc-tpl="125" style="font-size: 17px; color: var(--accent); flex: 0 0 auto;">↗</span>
+          </div>
+          <p data-dc-tpl="126" style="font-size: 14.5px; line-height: 1.55; margin: 9px 0px 0px; color: var(--muted);"><span class="sc-interp">Taps, sinks, showers and full fit-outs installed with a flawless finish.</span></p>
+          
+        </div>
+      
+        <div data-dc-tpl="121" class="scp4" style="border-radius: 24px; padding: 18px; transition: transform 0.3s, box-shadow 0.3s; background: var(--card); border: 1px solid var(--line);">
+          <div data-dc-tpl="122" style="border-radius: 16px; height: 130px; margin-bottom: 18px; background-image: url(&quot;https://plus.unsplash.com/premium_photo-1750594940949-6cd512242c62?auto=format&amp;fit=crop&amp;w=520&amp;h=360&amp;q=72&quot;); background-size: cover; background-position: center center;"></div>
+          <div data-dc-tpl="123" style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+            <h3 data-dc-tpl="124" style="font-weight: 800; font-size: 19px; letter-spacing: -0.01em; margin: 0px;"><span class="sc-interp">Boiler &amp; Water Heater</span></h3>
+            <span data-dc-tpl="125" style="font-size: 17px; color: var(--accent); flex: 0 0 auto;">↗</span>
+          </div>
+          <p data-dc-tpl="126" style="font-size: 14.5px; line-height: 1.55; margin: 9px 0px 0px; color: var(--muted);"><span class="sc-interp">Servicing, repair and installation of boilers, geysers and hot-water systems.</span></p>
+          
+        </div>
+      
+        <div data-dc-tpl="121" class="scp4" style="border-radius: 24px; padding: 18px; transition: transform 0.3s, box-shadow 0.3s; background: var(--card); border: 1px solid var(--line);">
+          <div data-dc-tpl="122" style="border-radius: 16px; height: 130px; margin-bottom: 18px; background-image: url(&quot;https://plus.unsplash.com/premium_photo-1750594942743-1abf9da981f7?auto=format&amp;fit=crop&amp;w=520&amp;h=360&amp;q=72&quot;); background-size: cover; background-position: center center;"></div>
+          <div data-dc-tpl="123" style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+            <h3 data-dc-tpl="124" style="font-weight: 800; font-size: 19px; letter-spacing: -0.01em; margin: 0px;"><span class="sc-interp">Installations &amp; Fixtures</span></h3>
+            <span data-dc-tpl="125" style="font-size: 17px; color: var(--accent); flex: 0 0 auto;">↗</span>
+          </div>
+          <p data-dc-tpl="126" style="font-size: 14.5px; line-height: 1.55; margin: 9px 0px 0px; color: var(--muted);"><span class="sc-interp">Dishwashers, washing machines, toilets and fixtures fitted right, first time.</span></p>
+          
+        </div>
+      
+        <div data-dc-tpl="121" class="scp4" style="border-radius: 24px; padding: 18px; transition: transform 0.3s, box-shadow 0.3s; background: var(--card); border: 1px solid var(--line);">
+          <div data-dc-tpl="122" style="border-radius: 16px; height: 130px; margin-bottom: 18px; background-image: url(&quot;https://plus.unsplash.com/premium_photo-1750594942636-1aad593584d8?auto=format&amp;fit=crop&amp;w=520&amp;h=360&amp;q=72&quot;); background-size: cover; background-position: center center;"></div>
+          <div data-dc-tpl="123" style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+            <h3 data-dc-tpl="124" style="font-weight: 800; font-size: 19px; letter-spacing: -0.01em; margin: 0px;"><span class="sc-interp">Commercial Plumbing</span></h3>
+            <span data-dc-tpl="125" style="font-size: 17px; color: var(--accent); flex: 0 0 auto;">↗</span>
+          </div>
+          <p data-dc-tpl="126" style="font-size: 14.5px; line-height: 1.55; margin: 9px 0px 0px; color: var(--muted);"><span class="sc-interp">Reliable maintenance and rapid response for offices, retail and hospitality.</span></p>
+          
+        </div>
+      
+      <a data-dc-tpl="129" href="https://templates.getgrowthrocket.com/plumber-01/#contact" class="scp5" style="position: relative; overflow: hidden; border-radius: 24px; padding: 22px; background: radial-gradient(125% 120% at 100% 0%,rgba(79,126,242,.22),rgba(79,126,242,0) 55%),var(--soft); border: 1px solid var(--line); display: flex; flex-direction: column; justify-content: space-between; min-height: 248px;">
+        <div data-dc-tpl="130">
+          <div data-dc-tpl="131" style="width: 48px; height: 48px; border-radius: 14px; background: var(--card); border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; color: var(--accent); font-size: 23px; font-weight: 800; margin-bottom: 18px;">?</div>
+          <h3 data-dc-tpl="132" style="font-weight: 800; font-size: 22px; letter-spacing: -0.015em; line-height: 1.15; margin: 0px 0px 8px;">Other plumbing needs?</h3>
+          <p data-dc-tpl="133" style="font-size: 14.5px; line-height: 1.55; color: var(--muted); margin: 0px;">Whatever the job, we can help. Tell us what's going on and we'll take it from there.</p>
+        </div>
+        <span data-dc-tpl="134" style="display: inline-flex; align-items: center; gap: 8px; font-weight: 800; font-size: 16px; color: var(--accent); margin-top: 20px;">Contact us <span data-dc-tpl="135" style="font-size: 18px;">→</span></span>
+      </a>
+    </div>
+  </div></section><section data-dc-tpl="136" style="padding: clamp(56px, 8vw, 100px) 0px;">
+  <div data-dc-tpl="137" style="max-width: 1180px; margin: 0px auto; padding: 0px 24px;">
+    <div data-dc-tpl="138" style="border-radius: 34px; background: var(--grad); padding: clamp(36px, 5vw, 68px); color: rgb(255, 255, 255); position: relative; overflow: hidden; box-shadow: rgba(60, 60, 140, 0.7) 0px 50px 90px -50px;">
+      <div data-dc-tpl="139" style="position: absolute; inset: 0px; background: radial-gradient(120% 100% at 100% 0%, rgba(255, 255, 255, 0.18), transparent 55%); pointer-events: none;"></div>
+      <div data-dc-tpl="140" style="position: relative; max-width: 640px; margin-bottom: 44px;">
+        <div data-dc-tpl="141" style="font-weight: 700; font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.82; margin-bottom: 16px;">Why choose AquaFlow</div>
+        <h2 data-dc-tpl="142" style="font-weight: 800; font-size: clamp(28px, 4.2vw, 46px); line-height: 1.07; letter-spacing: -0.028em; margin: 0px 0px 14px;">A safer, cleaner, more honest way to fix your plumbing</h2>
+        <p data-dc-tpl="143" style="font-size: 17px; line-height: 1.6; opacity: 0.9; margin: 0px;">Six reasons thousands of homeowners and businesses keep our number saved.</p>
+      </div>
+      <div data-dc-tpl="144" style="position: relative; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 30px 36px;">
+        
+          <div data-dc-tpl="146">
+            <div data-dc-tpl="147" style="width: 42px; height: 42px; border-radius: 13px; background: rgba(255, 255, 255, 0.16); border: 1px solid rgba(255, 255, 255, 0.28); display: flex; align-items: center; justify-content: center; font-size: 19px; margin-bottom: 15px;"><span class="sc-interp">⚡</span></div>
+            <h3 data-dc-tpl="148" style="font-weight: 800; font-size: 19px; margin: 0px 0px 7px;"><span class="sc-interp">Fast response times</span></h3>
+            <p data-dc-tpl="149" style="font-size: 15px; line-height: 1.55; opacity: 0.88; margin: 0px;"><span class="sc-interp">On-site within the hour for genuine emergencies, seven days a week.</span></p>
+          </div>
+        
+          <div data-dc-tpl="146">
+            <div data-dc-tpl="147" style="width: 42px; height: 42px; border-radius: 13px; background: rgba(255, 255, 255, 0.16); border: 1px solid rgba(255, 255, 255, 0.28); display: flex; align-items: center; justify-content: center; font-size: 19px; margin-bottom: 15px;"><span class="sc-interp">✓</span></div>
+            <h3 data-dc-tpl="148" style="font-weight: 800; font-size: 19px; margin: 0px 0px 7px;"><span class="sc-interp">Certified &amp; insured</span></h3>
+            <p data-dc-tpl="149" style="font-size: 15px; line-height: 1.55; opacity: 0.88; margin: 0px;"><span class="sc-interp">Fully qualified, vetted engineers with complete liability cover.</span></p>
+          </div>
+        
+          <div data-dc-tpl="146">
+            <div data-dc-tpl="147" style="width: 42px; height: 42px; border-radius: 13px; background: rgba(255, 255, 255, 0.16); border: 1px solid rgba(255, 255, 255, 0.28); display: flex; align-items: center; justify-content: center; font-size: 19px; margin-bottom: 15px;"><span class="sc-interp">€</span></div>
+            <h3 data-dc-tpl="148" style="font-weight: 800; font-size: 19px; margin: 0px 0px 7px;"><span class="sc-interp">Transparent fixed pricing</span></h3>
+            <p data-dc-tpl="149" style="font-size: 15px; line-height: 1.55; opacity: 0.88; margin: 0px;"><span class="sc-interp">Clear quotes before we start. No surprises, no call-out tricks.</span></p>
+          </div>
+        
+          <div data-dc-tpl="146">
+            <div data-dc-tpl="147" style="width: 42px; height: 42px; border-radius: 13px; background: rgba(255, 255, 255, 0.16); border: 1px solid rgba(255, 255, 255, 0.28); display: flex; align-items: center; justify-content: center; font-size: 19px; margin-bottom: 15px;"><span class="sc-interp">◇</span></div>
+            <h3 data-dc-tpl="148" style="font-weight: 800; font-size: 19px; margin: 0px 0px 7px;"><span class="sc-interp">Clean, respectful work</span></h3>
+            <p data-dc-tpl="149" style="font-size: 15px; line-height: 1.55; opacity: 0.88; margin: 0px;"><span class="sc-interp">Shoe covers, dust sheets and a spotless finish, every visit.</span></p>
+          </div>
+        
+          <div data-dc-tpl="146">
+            <div data-dc-tpl="147" style="width: 42px; height: 42px; border-radius: 13px; background: rgba(255, 255, 255, 0.16); border: 1px solid rgba(255, 255, 255, 0.28); display: flex; align-items: center; justify-content: center; font-size: 19px; margin-bottom: 15px;"><span class="sc-interp">★</span></div>
+            <h3 data-dc-tpl="148" style="font-weight: 800; font-size: 19px; margin: 0px 0px 7px;"><span class="sc-interp">Guaranteed repairs</span></h3>
+            <p data-dc-tpl="149" style="font-size: 15px; line-height: 1.55; opacity: 0.88; margin: 0px;"><span class="sc-interp">Workmanship backed by a written guarantee for total peace of mind.</span></p>
+          </div>
+        
+          <div data-dc-tpl="146">
+            <div data-dc-tpl="147" style="width: 42px; height: 42px; border-radius: 13px; background: rgba(255, 255, 255, 0.16); border: 1px solid rgba(255, 255, 255, 0.28); display: flex; align-items: center; justify-content: center; font-size: 19px; margin-bottom: 15px;"><span class="sc-interp">◉</span></div>
+            <h3 data-dc-tpl="148" style="font-weight: 800; font-size: 19px; margin: 0px 0px 7px;"><span class="sc-interp">Local, 7-day service</span></h3>
+            <p data-dc-tpl="149" style="font-size: 15px; line-height: 1.55; opacity: 0.88; margin: 0px;"><span class="sc-interp">Amsterdam-based teams who know your area and your buildings.</span></p>
+          </div>
+        
+      </div>
+    </div>
+  </div></section><section data-dc-tpl="150" style="padding: clamp(40px, 7vw, 90px) 0px; position: relative;">
+  <div data-dc-tpl="151" style="max-width: 1180px; margin: 0px auto; padding: 0px 24px;">
+    <div data-dc-tpl="152" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: clamp(34px, 5vw, 72px);">
+      <div data-dc-tpl="153">
+        <div data-dc-tpl="154" style="font-weight: 700; font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px;">How it works</div>
+        <h2 data-dc-tpl="155" style="font-weight: 800; font-size: clamp(28px, 4.2vw, 46px); line-height: 1.06; letter-spacing: -0.028em; margin: 0px 0px 18px;">From first call to fully fixed — without the friction</h2>
+        <p data-dc-tpl="156" style="font-size: 17px; line-height: 1.64; color: var(--muted); margin: 0px 0px 28px;">No waiting around for vague time windows. Here's exactly what happens when you book AquaFlow.</p>
+        <a data-dc-tpl="157" href="https://templates.getgrowthrocket.com/plumber-01/#contact" class="scp6" style="display: inline-flex; align-items: center; gap: 9px; background: var(--ink); color: rgb(255, 255, 255); font-weight: 700; font-size: 16px; padding: 15px 26px; border-radius: 999px;">Book your visit <span data-dc-tpl="158">→</span></a>
+      </div>
+      <div data-dc-tpl="159">
+        
+          <div data-dc-tpl="161" style="display: flex; gap: 20px; position: relative; padding-bottom: 30px;">
+            <div data-dc-tpl="162" style="display: flex; flex-direction: column; align-items: center;">
+              <div data-dc-tpl="163" style="width: 46px; height: 46px; flex: 0 0 auto; border-radius: 999px; background: var(--card); border: 1.5px solid var(--line); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 17px; color: var(--accent); z-index: 1;"><span class="sc-interp">1</span></div>
+              <div data-dc-tpl="164" style="width: 2px; flex: 1 1 0%; min-height: 18px; background: var(--line); display: block; margin-top: 4px;"></div>
+            </div>
+            <div data-dc-tpl="165" style="padding-top: 8px;">
+              <h3 data-dc-tpl="166" style="font-weight: 800; font-size: 20px; margin: 0px 0px 5px; letter-spacing: -0.01em;"><span class="sc-interp">Request service</span></h3>
+              <p data-dc-tpl="167" style="font-size: 15.5px; line-height: 1.55; color: var(--muted); margin: 0px;"><span class="sc-interp">Book online, call or WhatsApp — just tell us what's wrong.</span></p>
+            </div>
+          </div>
+        
+          <div data-dc-tpl="161" style="display: flex; gap: 20px; position: relative; padding-bottom: 30px;">
+            <div data-dc-tpl="162" style="display: flex; flex-direction: column; align-items: center;">
+              <div data-dc-tpl="163" style="width: 46px; height: 46px; flex: 0 0 auto; border-radius: 999px; background: var(--card); border: 1.5px solid var(--line); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 17px; color: var(--accent); z-index: 1;"><span class="sc-interp">2</span></div>
+              <div data-dc-tpl="164" style="width: 2px; flex: 1 1 0%; min-height: 18px; background: var(--line); display: block; margin-top: 4px;"></div>
+            </div>
+            <div data-dc-tpl="165" style="padding-top: 8px;">
+              <h3 data-dc-tpl="166" style="font-weight: 800; font-size: 20px; margin: 0px 0px 5px; letter-spacing: -0.01em;"><span class="sc-interp">We confirm your slot</span></h3>
+              <p data-dc-tpl="167" style="font-size: 15.5px; line-height: 1.55; color: var(--muted); margin: 0px;"><span class="sc-interp">Get a clear time window and an upfront price guide.</span></p>
+            </div>
+          </div>
+        
+          <div data-dc-tpl="161" style="display: flex; gap: 20px; position: relative; padding-bottom: 30px;">
+            <div data-dc-tpl="162" style="display: flex; flex-direction: column; align-items: center;">
+              <div data-dc-tpl="163" style="width: 46px; height: 46px; flex: 0 0 auto; border-radius: 999px; background: var(--card); border: 1.5px solid var(--line); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 17px; color: var(--accent); z-index: 1;"><span class="sc-interp">3</span></div>
+              <div data-dc-tpl="164" style="width: 2px; flex: 1 1 0%; min-height: 18px; background: var(--line); display: block; margin-top: 4px;"></div>
+            </div>
+            <div data-dc-tpl="165" style="padding-top: 8px;">
+              <h3 data-dc-tpl="166" style="font-weight: 800; font-size: 20px; margin: 0px 0px 5px; letter-spacing: -0.01em;"><span class="sc-interp">Your plumber arrives</span></h3>
+              <p data-dc-tpl="167" style="font-size: 15.5px; line-height: 1.55; color: var(--muted); margin: 0px;"><span class="sc-interp">A certified engineer arrives on time, fully equipped.</span></p>
+            </div>
+          </div>
+        
+          <div data-dc-tpl="161" style="display: flex; gap: 20px; position: relative; padding-bottom: 30px;">
+            <div data-dc-tpl="162" style="display: flex; flex-direction: column; align-items: center;">
+              <div data-dc-tpl="163" style="width: 46px; height: 46px; flex: 0 0 auto; border-radius: 999px; background: var(--card); border: 1.5px solid var(--line); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 17px; color: var(--accent); z-index: 1;"><span class="sc-interp">4</span></div>
+              <div data-dc-tpl="164" style="width: 2px; flex: 1 1 0%; min-height: 18px; background: var(--line); display: block; margin-top: 4px;"></div>
+            </div>
+            <div data-dc-tpl="165" style="padding-top: 8px;">
+              <h3 data-dc-tpl="166" style="font-weight: 800; font-size: 20px; margin: 0px 0px 5px; letter-spacing: -0.01em;"><span class="sc-interp">Diagnose &amp; fix</span></h3>
+              <p data-dc-tpl="167" style="font-size: 15.5px; line-height: 1.55; color: var(--muted); margin: 0px;"><span class="sc-interp">We explain the issue and fix it properly, on the spot where possible.</span></p>
+            </div>
+          </div>
+        
+          <div data-dc-tpl="161" style="display: flex; gap: 20px; position: relative; padding-bottom: 30px;">
+            <div data-dc-tpl="162" style="display: flex; flex-direction: column; align-items: center;">
+              <div data-dc-tpl="163" style="width: 46px; height: 46px; flex: 0 0 auto; border-radius: 999px; background: var(--card); border: 1.5px solid var(--line); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 17px; color: var(--accent); z-index: 1;"><span class="sc-interp">5</span></div>
+              <div data-dc-tpl="164" style="width: 2px; flex: 1 1 0%; min-height: 18px; background: var(--line); display: none; margin-top: 4px;"></div>
+            </div>
+            <div data-dc-tpl="165" style="padding-top: 8px;">
+              <h3 data-dc-tpl="166" style="font-weight: 800; font-size: 20px; margin: 0px 0px 5px; letter-spacing: -0.01em;"><span class="sc-interp">Test &amp; clean up</span></h3>
+              <p data-dc-tpl="167" style="font-size: 15.5px; line-height: 1.55; color: var(--muted); margin: 0px;"><span class="sc-interp">We test everything, tidy up and leave your home as we found it.</span></p>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+  </div></section><section data-dc-tpl="168" style="padding: clamp(50px, 7vw, 96px) 0px; background: var(--card);">
+  <div data-dc-tpl="169" style="max-width: 1180px; margin: 0px auto; padding: 0px 24px;">
+    <div data-dc-tpl="170" style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 20px; margin-bottom: 38px;">
+      <div data-dc-tpl="171">
+        <div data-dc-tpl="172" style="font-weight: 700; font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px;">Our work</div>
+        <h2 data-dc-tpl="173" style="font-weight: 800; font-size: clamp(28px, 4.2vw, 46px); line-height: 1.05; letter-spacing: -0.028em; margin: 0px;">A finish you'd be happy to show off</h2>
+      </div>
+      <div data-dc-tpl="174" style="display: flex; flex-direction: column; gap: 18px; align-items: flex-start;">
+        <p data-dc-tpl="175" style="font-size: 16px; color: var(--muted); max-width: 320px; margin: 0px;">Recent installs, repairs and refits across Amsterdam homes and businesses.</p>
+        <div data-dc-tpl="176" style="display: flex; gap: 10px;">
+          <button data-dc-tpl="177" aria-label="Previous" class="scp7" style="width: 48px; height: 48px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--card); color: var(--ink); font-size: 19px; cursor: pointer; display: flex; align-items: center; justify-content: center;">←</button>
+          <button data-dc-tpl="178" aria-label="Next" class="scp1" style="width: 48px; height: 48px; border-radius: 999px; border: 0px; background: var(--grad-cta); color: rgb(255, 255, 255); font-size: 19px; cursor: pointer; display: flex; align-items: center; justify-content: center;">→</button>
+        </div>
+      </div>
+    </div>
+    <div data-dc-tpl="179" data-gal="" style="display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 4px 4px 14px; margin: 0px -4px; scrollbar-width: none;">
+      
+        <div data-dc-tpl="181" style="flex: 0 0 auto; width: min(86vw, 420px); height: 300px; border-radius: 22px; overflow: hidden; scroll-snap-align: start; background-image: url(&quot;https://plus.unsplash.com/premium_photo-1750594940989-5c93275f7b64?auto=format&amp;fit=crop&amp;w=640&amp;h=480&amp;q=72&quot;); background-size: cover; background-position: center center;"></div>
+      
+        <div data-dc-tpl="181" style="flex: 0 0 auto; width: min(86vw, 420px); height: 300px; border-radius: 22px; overflow: hidden; scroll-snap-align: start; background-image: url(&quot;https://plus.unsplash.com/premium_photo-1750594940960-0c1790168431?auto=format&amp;fit=crop&amp;w=640&amp;h=480&amp;q=72&quot;); background-size: cover; background-position: center center;"></div>
+      
+        <div data-dc-tpl="181" style="flex: 0 0 auto; width: min(86vw, 420px); height: 300px; border-radius: 22px; overflow: hidden; scroll-snap-align: start; background-image: url(&quot;https://plus.unsplash.com/premium_photo-1750594942711-58fa23b80518?auto=format&amp;fit=crop&amp;w=640&amp;h=480&amp;q=72&quot;); background-size: cover; background-position: center center;"></div>
+      
+        <div data-dc-tpl="181" style="flex: 0 0 auto; width: min(86vw, 420px); height: 300px; border-radius: 22px; overflow: hidden; scroll-snap-align: start; background-image: url(&quot;https://plus.unsplash.com/premium_photo-1750594942743-1abf9da981f7?auto=format&amp;fit=crop&amp;w=640&amp;h=480&amp;q=72&quot;); background-size: cover; background-position: center center;"></div>
+      
+        <div data-dc-tpl="181" style="flex: 0 0 auto; width: min(86vw, 420px); height: 300px; border-radius: 22px; overflow: hidden; scroll-snap-align: start; background-image: url(&quot;https://plus.unsplash.com/premium_photo-1750594940949-6cd512242c62?auto=format&amp;fit=crop&amp;w=640&amp;h=480&amp;q=72&quot;); background-size: cover; background-position: center center;"></div>
+      
+        <div data-dc-tpl="181" style="flex: 0 0 auto; width: min(86vw, 420px); height: 300px; border-radius: 22px; overflow: hidden; scroll-snap-align: start; background-image: url(&quot;https://plus.unsplash.com/premium_photo-1750594941733-778d58dca208?auto=format&amp;fit=crop&amp;w=640&amp;h=480&amp;q=72&quot;); background-size: cover; background-position: center center;"></div>
+      
+        <div data-dc-tpl="181" style="flex: 0 0 auto; width: min(86vw, 420px); height: 300px; border-radius: 22px; overflow: hidden; scroll-snap-align: start; background-image: url(&quot;https://plus.unsplash.com/premium_photo-1750594941294-91dcf3896ad5?auto=format&amp;fit=crop&amp;w=640&amp;h=480&amp;q=72&quot;); background-size: cover; background-position: center center;"></div>
+      
+    </div>
+  </div></section><section data-dc-tpl="182" style="padding: clamp(50px, 7vw, 96px) 0px;">
+  <div data-dc-tpl="183" style="max-width: 1180px; margin: 0px auto; padding: 0px 24px;">
+    <div data-dc-tpl="184" style="max-width: 620px; margin-bottom: 40px;">
+      <div data-dc-tpl="185" style="font-weight: 700; font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px;">The team</div>
+      <h2 data-dc-tpl="186" style="font-weight: 800; font-size: clamp(28px, 4.2vw, 46px); line-height: 1.06; letter-spacing: -0.028em; margin: 0px;">Real people, on first-name terms</h2>
+    </div>
+    <div data-dc-tpl="187" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: 20px;">
+      
+        <div data-dc-tpl="189" style="background: var(--card); border: 1px solid var(--line); border-radius: 24px; padding: 16px;">
+          <div data-dc-tpl="190" style="border-radius: 18px; height: 230px; background-image: url(&quot;https://plus.unsplash.com/premium_photo-1663013675008-bd5a7898ac4f?auto=format&amp;fit=crop&amp;w=520&amp;h=600&amp;q=72&quot;); background-size: cover; background-position: center center;"></div>
+          <div data-dc-tpl="191" style="padding: 18px 8px 8px;">
+            <h3 data-dc-tpl="192" style="font-weight: 800; font-size: 19px; margin: 0px 0px 3px;"><span class="sc-interp">Daan Visser</span></h3>
+            <div data-dc-tpl="193" style="font-size: 14.5px; color: var(--accent); font-weight: 600;"><span class="sc-interp">Founder &amp; Master Plumber</span></div>
+            <p data-dc-tpl="194" style="font-size: 14.5px; line-height: 1.55; color: var(--muted); margin: 10px 0px 0px;"><span class="sc-interp">25 years on the tools. Leads every complex install and the emergency rota personally.</span></p>
+          </div>
+        </div>
+      
+        <div data-dc-tpl="189" style="background: var(--card); border: 1px solid var(--line); border-radius: 24px; padding: 16px;">
+          <div data-dc-tpl="190" style="border-radius: 18px; height: 230px; background-image: url(&quot;https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&amp;fit=crop&amp;w=520&amp;h=600&amp;q=72&quot;); background-size: cover; background-position: center center;"></div>
+          <div data-dc-tpl="191" style="padding: 18px 8px 8px;">
+            <h3 data-dc-tpl="192" style="font-weight: 800; font-size: 19px; margin: 0px 0px 3px;"><span class="sc-interp">Lieke de Boer</span></h3>
+            <div data-dc-tpl="193" style="font-size: 14.5px; color: var(--accent); font-weight: 600;"><span class="sc-interp">Heating &amp; Boiler Specialist</span></div>
+            <p data-dc-tpl="194" style="font-size: 14.5px; line-height: 1.55; color: var(--muted); margin: 10px 0px 0px;"><span class="sc-interp">Gas-safe certified, with a knack for diagnosing the boiler faults others give up on.</span></p>
+          </div>
+        </div>
+      
+        <div data-dc-tpl="189" style="background: var(--card); border: 1px solid var(--line); border-radius: 24px; padding: 16px;">
+          <div data-dc-tpl="190" style="border-radius: 18px; height: 230px; background-image: url(&quot;https://plus.unsplash.com/premium_photo-1750594941294-91dcf3896ad5?auto=format&amp;fit=crop&amp;w=520&amp;h=600&amp;q=72&quot;); background-size: cover; background-position: center center;"></div>
+          <div data-dc-tpl="191" style="padding: 18px 8px 8px;">
+            <h3 data-dc-tpl="192" style="font-weight: 800; font-size: 19px; margin: 0px 0px 3px;"><span class="sc-interp">Sem Janssen</span></h3>
+            <div data-dc-tpl="193" style="font-size: 14.5px; color: var(--accent); font-weight: 600;"><span class="sc-interp">Lead Service Engineer</span></div>
+            <p data-dc-tpl="194" style="font-size: 14.5px; line-height: 1.55; color: var(--muted); margin: 10px 0px 0px;"><span class="sc-interp">Your most likely first knock — fast, tidy and great at explaining what went wrong.</span></p>
+          </div>
+        </div>
+      
+    </div>
+  </div></section><section data-dc-tpl="195" id="reviews" style="padding: clamp(56px, 8vw, 100px) 0px; background: var(--card);">
+  <div data-dc-tpl="196" style="max-width: 1180px; margin: 0px auto; padding: 0px 24px;">
+    <div data-dc-tpl="197" style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 40px;">
+      <div data-dc-tpl="198" style="max-width: 560px;">
+        <div data-dc-tpl="199" style="font-weight: 700; font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px;">Reviews</div>
+        <h2 data-dc-tpl="200" style="font-weight: 800; font-size: clamp(30px, 4.4vw, 50px); line-height: 1.05; letter-spacing: -0.028em; margin: 0px;">Trusted by homeowners &amp; businesses</h2>
+      </div>
+      <div data-dc-tpl="201" style="display: flex; gap: 24px; align-items: center;">
+        <div data-dc-tpl="202"><div data-dc-tpl="203" style="font-weight: 800; font-size: 32px; background-image: ; background-position-x: ; background-position-y: ; background-size: ; background-repeat: ; background-attachment: ; background-origin: ; background-clip: text; background-color: ; color: transparent;">4.9/5</div><div data-dc-tpl="204" style="font-size: 13.5px; color: var(--muted);">average rating</div></div>
+        <div data-dc-tpl="205" style="width: 1px; align-self: stretch; background: var(--line);"></div>
+        <div data-dc-tpl="206"><div data-dc-tpl="207" style="font-weight: 800; font-size: 32px; background-image: ; background-position-x: ; background-position-y: ; background-size: ; background-repeat: ; background-attachment: ; background-origin: ; background-clip: text; background-color: ; color: transparent;">250+</div><div data-dc-tpl="208" style="font-size: 13.5px; color: var(--muted);">verified reviews</div></div>
+      </div>
+    </div>
+    <div data-dc-tpl="209" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr)); gap: 18px;">
+      
+        <div data-dc-tpl="211" style="background: var(--bg); border: 1px solid var(--line); border-radius: 24px; padding: 28px;">
+          <div data-dc-tpl="212" style="color: rgb(245, 178, 58); font-size: 16px; letter-spacing: 2px; margin-bottom: 14px;">★★★★★</div>
+          <p data-dc-tpl="213" style="font-size: 16.5px; line-height: 1.6; margin: 0px 0px 22px; color: rgb(38, 39, 44);">"<span class="sc-interp">They arrived within 40 minutes on a Sunday and fixed a burst pipe before it ruined the floor. Calm, clean and fairly priced.</span>"</p>
+          <div data-dc-tpl="214" style="display: flex; align-items: center; gap: 12px;">
+            <span data-dc-tpl="215" style="width: 42px; height: 42px; border-radius: 999px; background: var(--grad-soft); flex: 0 0 auto;"></span>
+            <div data-dc-tpl="216" style="flex: 1 1 0%;">
+              <div data-dc-tpl="217" style="font-weight: 800; font-size: 15px;"><span class="sc-interp">Marieke H.</span></div>
+              <div data-dc-tpl="218" style="font-size: 13px; color: var(--muted);"><span class="sc-interp">Amsterdam-Zuid · Emergency repair</span></div>
+            </div>
+            <span data-dc-tpl="219" style="font-size: 11px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--accent); background: var(--card); border: 1px solid var(--line); padding: 5px 9px; border-radius: 999px;"><span class="sc-interp">Google</span></span>
+          </div>
+        </div>
+      
+        <div data-dc-tpl="211" style="background: var(--bg); border: 1px solid var(--line); border-radius: 24px; padding: 28px;">
+          <div data-dc-tpl="212" style="color: rgb(245, 178, 58); font-size: 16px; letter-spacing: 2px; margin-bottom: 14px;">★★★★★</div>
+          <p data-dc-tpl="213" style="font-size: 16.5px; line-height: 1.6; margin: 0px 0px 22px; color: rgb(38, 39, 44);">"<span class="sc-interp">Booked a full bathroom refit. The finish is immaculate and they stuck to the quote to the cent. The most professional trades I have used.</span>"</p>
+          <div data-dc-tpl="214" style="display: flex; align-items: center; gap: 12px;">
+            <span data-dc-tpl="215" style="width: 42px; height: 42px; border-radius: 999px; background: var(--grad-soft); flex: 0 0 auto;"></span>
+            <div data-dc-tpl="216" style="flex: 1 1 0%;">
+              <div data-dc-tpl="217" style="font-weight: 800; font-size: 15px;"><span class="sc-interp">Thomas R.</span></div>
+              <div data-dc-tpl="218" style="font-size: 13px; color: var(--muted);"><span class="sc-interp">Haarlem · Bathroom install</span></div>
+            </div>
+            <span data-dc-tpl="219" style="font-size: 11px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--accent); background: var(--card); border: 1px solid var(--line); padding: 5px 9px; border-radius: 999px;"><span class="sc-interp">Google</span></span>
+          </div>
+        </div>
+      
+        <div data-dc-tpl="211" style="background: var(--bg); border: 1px solid var(--line); border-radius: 24px; padding: 28px;">
+          <div data-dc-tpl="212" style="color: rgb(245, 178, 58); font-size: 16px; letter-spacing: 2px; margin-bottom: 14px;">★★★★★</div>
+          <p data-dc-tpl="213" style="font-size: 16.5px; line-height: 1.6; margin: 0px 0px 22px; color: rgb(38, 39, 44);">"<span class="sc-interp">Our café kitchen flooded an hour before service. AquaFlow had us running again the same morning. Now on a maintenance plan with them.</span>"</p>
+          <div data-dc-tpl="214" style="display: flex; align-items: center; gap: 12px;">
+            <span data-dc-tpl="215" style="width: 42px; height: 42px; border-radius: 999px; background: var(--grad-soft); flex: 0 0 auto;"></span>
+            <div data-dc-tpl="216" style="flex: 1 1 0%;">
+              <div data-dc-tpl="217" style="font-weight: 800; font-size: 15px;"><span class="sc-interp">Priya N.</span></div>
+              <div data-dc-tpl="218" style="font-size: 13px; color: var(--muted);"><span class="sc-interp">Amsterdam-Centrum · Commercial</span></div>
+            </div>
+            <span data-dc-tpl="219" style="font-size: 11px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--accent); background: var(--card); border: 1px solid var(--line); padding: 5px 9px; border-radius: 999px;"><span class="sc-interp">Trustpilot</span></span>
+          </div>
+        </div>
+      
+    </div>
+  </div></section><section data-dc-tpl="220" style="padding: clamp(56px, 8vw, 100px) 0px;">
+  <div data-dc-tpl="221" style="max-width: 1180px; margin: 0px auto; padding: 0px 24px;">
+    <div data-dc-tpl="222" style="border-radius: 34px; background: var(--grad); padding: clamp(34px, 5vw, 60px); color: rgb(255, 255, 255); position: relative; overflow: hidden; box-shadow: rgba(60, 60, 140, 0.7) 0px 50px 90px -50px;">
+      <div data-dc-tpl="223" style="position: absolute; inset: 0px; background: radial-gradient(110% 120% at 0% 100%, rgba(255, 255, 255, 0.18), transparent 55%); pointer-events: none;"></div>
+      <div data-dc-tpl="224" style="position: relative; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 36px; align-items: center;">
+        <div data-dc-tpl="225">
+          <h2 data-dc-tpl="226" style="font-weight: 800; font-size: clamp(30px, 4.4vw, 52px); line-height: 1.04; letter-spacing: -0.03em; margin: 0px 0px 16px;">Need a plumber today?</h2>
+          <p data-dc-tpl="227" style="font-size: 18px; line-height: 1.55; opacity: 0.92; margin: 0px 0px 28px; max-width: 440px;">Book a visit in minutes. Same-day slots available — and a real person on the emergency line right now.</p>
+          <div data-dc-tpl="228" style="display: flex; flex-wrap: wrap; gap: 13px; margin-bottom: 24px;">
+            <a data-dc-tpl="229" href="https://templates.getgrowthrocket.com/plumber-01/#contact" class="scp8" style="display: inline-flex; align-items: center; gap: 9px; background: rgb(255, 255, 255); color: var(--ink); font-weight: 800; font-size: 17px; padding: 16px 28px; border-radius: 999px;">Book Appointment <span data-dc-tpl="230">→</span></a>
+            <a data-dc-tpl="231" href="tel:+31201234567" class="scp9" style="display: inline-flex; align-items: center; gap: 9px; background: rgba(255, 255, 255, 0.14); border: 1.5px solid rgba(255, 255, 255, 0.5); color: rgb(255, 255, 255); font-weight: 700; font-size: 17px; padding: 16px 26px; border-radius: 999px;">✆ Call now</a>
+          </div>
+          <div data-dc-tpl="232" style="display: flex; align-items: center; gap: 11px; font-size: 14.5px; font-weight: 600; opacity: 0.95;">
+            <div data-dc-tpl="233" style="display: flex;"><span data-dc-tpl="234" style="width: 30px; height: 30px; border-radius: 999px; background: rgba(255, 255, 255, 0.35); border: 2px solid rgb(255, 255, 255);"></span><span data-dc-tpl="235" style="width: 30px; height: 30px; border-radius: 999px; background: rgba(255, 255, 255, 0.55); border: 2px solid rgb(255, 255, 255); margin-left: -11px;"></span><span data-dc-tpl="236" style="width: 30px; height: 30px; border-radius: 999px; background: rgba(255, 255, 255, 0.35); border: 2px solid rgb(255, 255, 255); margin-left: -11px;"></span></div>
+            Trusted by 12,000+ jobs completed
+          </div>
+        </div>
+        <div data-dc-tpl="237" style="border-radius: 24px; overflow: hidden; min-height: 300px; border: 1px solid rgba(255, 255, 255, 0.22); background-image: url(&quot;https://plus.unsplash.com/premium_photo-1750594942636-1aad593584d8?auto=format&amp;fit=crop&amp;w=800&amp;h=700&amp;q=72&quot;); background-size: cover; background-position: center center;"></div>
+      </div>
+    </div>
+  </div></section><section data-dc-tpl="238" id="areas" style="padding: clamp(50px, 7vw, 96px) 0px; background: var(--card);">
+  <div data-dc-tpl="239" style="max-width: 1180px; margin: 0px auto; padding: 0px 24px;">
+    <div data-dc-tpl="240" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: clamp(30px, 4vw, 56px); align-items: center;">
+      <div data-dc-tpl="241">
+        <div data-dc-tpl="242" style="font-weight: 700; font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px;">Service areas</div>
+        <h2 data-dc-tpl="243" style="font-weight: 800; font-size: clamp(28px, 4.2vw, 46px); line-height: 1.06; letter-spacing: -0.028em; margin: 0px 0px 18px;">Proudly serving Amsterdam &amp; the surrounding region</h2>
+        <p data-dc-tpl="244" style="font-size: 17px; line-height: 1.64; color: var(--muted); margin: 0px 0px 24px;">Local teams who know the canals' old pipework as well as new-build apartments. Fast response times because we're never far away. Don't see your town? Send your postcode — chances are we cover it.</p>
+        <div data-dc-tpl="245" style="display: inline-flex; align-items: center; gap: 12px; background: var(--bg); border: 1px solid var(--line); border-radius: 18px; padding: 16px 20px;">
+          <span data-dc-tpl="246" style="width: 46px; height: 46px; border-radius: 13px; background: var(--grad); display: flex; align-items: center; justify-content: center; color: rgb(255, 255, 255); font-size: 20px; font-weight: 800;">A</span>
+          <div data-dc-tpl="247"><div data-dc-tpl="248" style="font-weight: 800; font-size: 17px;">Amsterdam &amp; all districts</div><div data-dc-tpl="249" style="font-size: 13.5px; color: var(--muted);">Centrum · Zuid · West · Oost · Noord</div></div>
+        </div>
+      </div>
+      <div data-dc-tpl="250">
+        <div data-dc-tpl="251" style="border-radius: 24px; overflow: hidden; min-height: 240px; background: repeating-linear-gradient(135deg,rgba(110,92,240,.06) 0 16px,rgba(34,195,201,.05) 16px 32px),var(--grad-soft); display: flex; align-items: flex-end; padding: 16px; margin-bottom: 18px;">
+          <span data-dc-tpl="252" style="font: 500 12px / 1 &quot;Courier New&quot;, monospace; color: rgb(125, 114, 176); background: rgba(255, 255, 255, 0.72); padding: 7px 12px; border-radius: 999px;">map · coverage-area</span>
+        </div>
+        <div data-dc-tpl="253" style="display: flex; flex-wrap: wrap; gap: 9px;">
+          
+            <span data-dc-tpl="255" class="scp7" style="font-size: 14.5px; font-weight: 600; color: rgb(65, 66, 74); background: var(--bg); border: 1px solid var(--line); padding: 9px 15px; border-radius: 999px;"><span class="sc-interp">Haarlem</span></span>
+          
+            <span data-dc-tpl="255" class="scp7" style="font-size: 14.5px; font-weight: 600; color: rgb(65, 66, 74); background: var(--bg); border: 1px solid var(--line); padding: 9px 15px; border-radius: 999px;"><span class="sc-interp">Utrecht</span></span>
+          
+            <span data-dc-tpl="255" class="scp7" style="font-size: 14.5px; font-weight: 600; color: rgb(65, 66, 74); background: var(--bg); border: 1px solid var(--line); padding: 9px 15px; border-radius: 999px;"><span class="sc-interp">Amstelveen</span></span>
+          
+            <span data-dc-tpl="255" class="scp7" style="font-size: 14.5px; font-weight: 600; color: rgb(65, 66, 74); background: var(--bg); border: 1px solid var(--line); padding: 9px 15px; border-radius: 999px;"><span class="sc-interp">Zaandam</span></span>
+          
+            <span data-dc-tpl="255" class="scp7" style="font-size: 14.5px; font-weight: 600; color: rgb(65, 66, 74); background: var(--bg); border: 1px solid var(--line); padding: 9px 15px; border-radius: 999px;"><span class="sc-interp">Almere</span></span>
+          
+            <span data-dc-tpl="255" class="scp7" style="font-size: 14.5px; font-weight: 600; color: rgb(65, 66, 74); background: var(--bg); border: 1px solid var(--line); padding: 9px 15px; border-radius: 999px;"><span class="sc-interp">Hilversum</span></span>
+          
+            <span data-dc-tpl="255" class="scp7" style="font-size: 14.5px; font-weight: 600; color: rgb(65, 66, 74); background: var(--bg); border: 1px solid var(--line); padding: 9px 15px; border-radius: 999px;"><span class="sc-interp">Diemen</span></span>
+          
+            <span data-dc-tpl="255" class="scp7" style="font-size: 14.5px; font-weight: 600; color: rgb(65, 66, 74); background: var(--bg); border: 1px solid var(--line); padding: 9px 15px; border-radius: 999px;"><span class="sc-interp">Weesp</span></span>
+          
+            <span data-dc-tpl="255" class="scp7" style="font-size: 14.5px; font-weight: 600; color: rgb(65, 66, 74); background: var(--bg); border: 1px solid var(--line); padding: 9px 15px; border-radius: 999px;"><span class="sc-interp">Hoofddorp</span></span>
+          
+            <span data-dc-tpl="255" class="scp7" style="font-size: 14.5px; font-weight: 600; color: rgb(65, 66, 74); background: var(--bg); border: 1px solid var(--line); padding: 9px 15px; border-radius: 999px;"><span class="sc-interp">Purmerend</span></span>
+          
+            <span data-dc-tpl="255" class="scp7" style="font-size: 14.5px; font-weight: 600; color: rgb(65, 66, 74); background: var(--bg); border: 1px solid var(--line); padding: 9px 15px; border-radius: 999px;"><span class="sc-interp">Bussum</span></span>
+          
+            <span data-dc-tpl="255" class="scp7" style="font-size: 14.5px; font-weight: 600; color: rgb(65, 66, 74); background: var(--bg); border: 1px solid var(--line); padding: 9px 15px; border-radius: 999px;"><span class="sc-interp">Uithoorn</span></span>
+          
+        </div>
+      </div>
+    </div>
+  </div></section><section data-dc-tpl="256" style="padding: clamp(50px, 7vw, 96px) 0px;">
+  <div data-dc-tpl="257" style="max-width: 1180px; margin: 0px auto; padding: 0px 24px;">
+    <div data-dc-tpl="258" style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 20px; margin-bottom: 38px;">
+      <div data-dc-tpl="259">
+        <div data-dc-tpl="260" style="font-weight: 700; font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px;">Advice &amp; tips</div>
+        <h2 data-dc-tpl="261" style="font-weight: 800; font-size: clamp(28px, 4.2vw, 46px); line-height: 1.05; letter-spacing: -0.028em; margin: 0px;">Avoid the next emergency</h2>
+      </div>
+      <a data-dc-tpl="262" href="https://templates.getgrowthrocket.com/plumber-01/#" style="display: inline-flex; align-items: center; gap: 8px; font-weight: 700; color: var(--accent);">View all articles <span data-dc-tpl="263">→</span></a>
+    </div>
+    <div data-dc-tpl="264" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 18px;">
+      
+        <a data-dc-tpl="266" href="https://templates.getgrowthrocket.com/plumber-01/#" class="scpa" style="background: var(--card); border: 1px solid var(--line); border-radius: 24px; overflow: hidden; display: block;">
+          <div data-dc-tpl="267" style="height: 180px; background-image: url(&quot;https://plus.unsplash.com/premium_photo-1750594941294-91dcf3896ad5?auto=format&amp;fit=crop&amp;w=520&amp;h=360&amp;q=72&quot;); background-size: cover; background-position: center center;"></div>
+          <div data-dc-tpl="268" style="padding: 22px;">
+            <div data-dc-tpl="269" style="display: flex; gap: 10px; align-items: center; font-size: 12.5px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 12px;"><span data-dc-tpl="270"><span class="sc-interp">Maintenance</span></span><span data-dc-tpl="271" style="color: var(--line);">·</span><span data-dc-tpl="272" style="color: var(--muted); font-weight: 600; text-transform: none; letter-spacing: 0px;"><span class="sc-interp">5 min read</span></span></div>
+            <h3 data-dc-tpl="273" style="font-weight: 800; font-size: 20px; line-height: 1.22; letter-spacing: -0.01em; margin: 0px 0px 18px;"><span class="sc-interp">6 warning signs you have a hidden water leak</span></h3>
+            <span data-dc-tpl="274" style="display: inline-flex; align-items: center; gap: 7px; font-weight: 700; font-size: 15px; color: var(--ink);">Read more <span data-dc-tpl="275" style="color: var(--accent);">→</span></span>
+          </div>
+        </a>
+      
+        <a data-dc-tpl="266" href="https://templates.getgrowthrocket.com/plumber-01/#" class="scpa" style="background: var(--card); border: 1px solid var(--line); border-radius: 24px; overflow: hidden; display: block;">
+          <div data-dc-tpl="267" style="height: 180px; background-image: url(&quot;https://plus.unsplash.com/premium_photo-1750594941733-778d58dca208?auto=format&amp;fit=crop&amp;w=520&amp;h=360&amp;q=72&quot;); background-size: cover; background-position: center center;"></div>
+          <div data-dc-tpl="268" style="padding: 22px;">
+            <div data-dc-tpl="269" style="display: flex; gap: 10px; align-items: center; font-size: 12.5px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 12px;"><span data-dc-tpl="270"><span class="sc-interp">Emergency</span></span><span data-dc-tpl="271" style="color: var(--line);">·</span><span data-dc-tpl="272" style="color: var(--muted); font-weight: 600; text-transform: none; letter-spacing: 0px;"><span class="sc-interp">3 min read</span></span></div>
+            <h3 data-dc-tpl="273" style="font-weight: 800; font-size: 20px; line-height: 1.22; letter-spacing: -0.01em; margin: 0px 0px 18px;"><span class="sc-interp">What to do in the first 5 minutes of a burst pipe</span></h3>
+            <span data-dc-tpl="274" style="display: inline-flex; align-items: center; gap: 7px; font-weight: 700; font-size: 15px; color: var(--ink);">Read more <span data-dc-tpl="275" style="color: var(--accent);">→</span></span>
+          </div>
+        </a>
+      
+        <a data-dc-tpl="266" href="https://templates.getgrowthrocket.com/plumber-01/#" class="scpa" style="background: var(--card); border: 1px solid var(--line); border-radius: 24px; overflow: hidden; display: block;">
+          <div data-dc-tpl="267" style="height: 180px; background-image: url(&quot;https://plus.unsplash.com/premium_photo-1750594942711-58fa23b80518?auto=format&amp;fit=crop&amp;w=520&amp;h=360&amp;q=72&quot;); background-size: cover; background-position: center center;"></div>
+          <div data-dc-tpl="268" style="padding: 22px;">
+            <div data-dc-tpl="269" style="display: flex; gap: 10px; align-items: center; font-size: 12.5px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 12px;"><span data-dc-tpl="270"><span class="sc-interp">Tips</span></span><span data-dc-tpl="271" style="color: var(--line);">·</span><span data-dc-tpl="272" style="color: var(--muted); font-weight: 600; text-transform: none; letter-spacing: 0px;"><span class="sc-interp">4 min read</span></span></div>
+            <h3 data-dc-tpl="273" style="font-weight: 800; font-size: 20px; line-height: 1.22; letter-spacing: -0.01em; margin: 0px 0px 18px;"><span class="sc-interp">Keep your drains clear and avoid a call-out</span></h3>
+            <span data-dc-tpl="274" style="display: inline-flex; align-items: center; gap: 7px; font-weight: 700; font-size: 15px; color: var(--ink);">Read more <span data-dc-tpl="275" style="color: var(--accent);">→</span></span>
+          </div>
+        </a>
+      
+    </div>
+  </div></section><section data-dc-tpl="276" id="faq" style="padding: clamp(56px, 8vw, 100px) 0px; background: var(--card);">
+  <div data-dc-tpl="277" style="max-width: 1180px; margin: 0px auto; padding: 0px 24px;">
+    <div data-dc-tpl="278" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: clamp(30px, 4vw, 60px); align-items: start;">
+      <div data-dc-tpl="279">
+        <div data-dc-tpl="280" style="font-weight: 700; font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px;">FAQ</div>
+        <h2 data-dc-tpl="281" style="font-weight: 800; font-size: clamp(28px, 4.2vw, 46px); line-height: 1.06; letter-spacing: -0.028em; margin: 0px 0px 18px;">Questions, answered before you call</h2>
+        <p data-dc-tpl="282" style="font-size: 17px; line-height: 1.64; color: var(--muted); margin: 0px 0px 26px;">Can't find what you're after? Our team is one quick message away.</p>
+        <a data-dc-tpl="283" href="https://templates.getgrowthrocket.com/plumber-01/#contact" class="scp6" style="display: inline-flex; align-items: center; gap: 9px; background: var(--ink); color: rgb(255, 255, 255); font-weight: 700; font-size: 16px; padding: 15px 26px; border-radius: 999px;">Ask a question <span data-dc-tpl="284">→</span></a>
+      </div>
+      <div data-dc-tpl="285">
+        
+          <div data-dc-tpl="287" style="border-bottom: 1px solid var(--line);">
+            <button data-dc-tpl="288" style="width: 100%; background: none; border: 0px; cursor: pointer; text-align: left; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 4px;">
+              <span data-dc-tpl="289" style="font-weight: 700; font-size: 18px; letter-spacing: -0.01em; color: var(--ink);"><span class="sc-interp">Do you offer emergency plumbing?</span></span>
+              <span data-dc-tpl="290" style="display: inline-block; flex: 0 0 auto; font-size: 26px; line-height: 1; color: var(--accent); transform: rotate(0deg); transition: transform 0.3s;">+</span>
+            </button>
+            <div data-dc-tpl="291" style="max-height: 0px; opacity: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s;"><p data-dc-tpl="292" style="font-size: 16px; line-height: 1.6; color: var(--muted); margin: 0px; padding: 0px 4px 24px;"><span class="sc-interp">Yes — we're available 24/7, 365 days a year for genuine emergencies, with an engineer typically on-site within the hour across Amsterdam.</span></p></div>
+          </div>
+        
+          <div data-dc-tpl="287" style="border-bottom: 1px solid var(--line);">
+            <button data-dc-tpl="288" style="width: 100%; background: none; border: 0px; cursor: pointer; text-align: left; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 4px;">
+              <span data-dc-tpl="289" style="font-weight: 700; font-size: 18px; letter-spacing: -0.01em; color: var(--ink);"><span class="sc-interp">Do you serve my area?</span></span>
+              <span data-dc-tpl="290" style="display: inline-block; flex: 0 0 auto; font-size: 26px; line-height: 1; color: var(--accent); transform: rotate(0deg); transition: transform 0.3s;">+</span>
+            </button>
+            <div data-dc-tpl="291" style="max-height: 0px; opacity: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s;"><p data-dc-tpl="292" style="font-size: 16px; line-height: 1.6; color: var(--muted); margin: 0px; padding: 0px 4px 24px;"><span class="sc-interp">We cover Amsterdam and the surrounding region including Haarlem, Utrecht, Amstelveen, Almere and more. Not sure? Send your postcode and we'll confirm in minutes.</span></p></div>
+          </div>
+        
+          <div data-dc-tpl="287" style="border-bottom: 1px solid var(--line);">
+            <button data-dc-tpl="288" style="width: 100%; background: none; border: 0px; cursor: pointer; text-align: left; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 4px;">
+              <span data-dc-tpl="289" style="font-weight: 700; font-size: 18px; letter-spacing: -0.01em; color: var(--ink);"><span class="sc-interp">How quickly can you arrive?</span></span>
+              <span data-dc-tpl="290" style="display: inline-block; flex: 0 0 auto; font-size: 26px; line-height: 1; color: var(--accent); transform: rotate(0deg); transition: transform 0.3s;">+</span>
+            </button>
+            <div data-dc-tpl="291" style="max-height: 0px; opacity: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s;"><p data-dc-tpl="292" style="font-size: 16px; line-height: 1.6; color: var(--muted); margin: 0px; padding: 0px 4px 24px;"><span class="sc-interp">For emergencies we aim to be with you within 60 minutes. Standard appointments are usually available same-day or next-day.</span></p></div>
+          </div>
+        
+          <div data-dc-tpl="287" style="border-bottom: 1px solid var(--line);">
+            <button data-dc-tpl="288" style="width: 100%; background: none; border: 0px; cursor: pointer; text-align: left; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 4px;">
+              <span data-dc-tpl="289" style="font-weight: 700; font-size: 18px; letter-spacing: -0.01em; color: var(--ink);"><span class="sc-interp">Do you provide fixed quotes?</span></span>
+              <span data-dc-tpl="290" style="display: inline-block; flex: 0 0 auto; font-size: 26px; line-height: 1; color: var(--accent); transform: rotate(0deg); transition: transform 0.3s;">+</span>
+            </button>
+            <div data-dc-tpl="291" style="max-height: 0px; opacity: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s;"><p data-dc-tpl="292" style="font-size: 16px; line-height: 1.6; color: var(--muted); margin: 0px; padding: 0px 4px 24px;"><span class="sc-interp">Yes. You'll get a clear, upfront price before any work begins — no hidden call-out fees or surprise charges.</span></p></div>
+          </div>
+        
+          <div data-dc-tpl="287" style="border-bottom: 1px solid var(--line);">
+            <button data-dc-tpl="288" style="width: 100%; background: none; border: 0px; cursor: pointer; text-align: left; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 4px;">
+              <span data-dc-tpl="289" style="font-weight: 700; font-size: 18px; letter-spacing: -0.01em; color: var(--ink);"><span class="sc-interp">Are you certified and insured?</span></span>
+              <span data-dc-tpl="290" style="display: inline-block; flex: 0 0 auto; font-size: 26px; line-height: 1; color: var(--accent); transform: rotate(0deg); transition: transform 0.3s;">+</span>
+            </button>
+            <div data-dc-tpl="291" style="max-height: 0px; opacity: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s;"><p data-dc-tpl="292" style="font-size: 16px; line-height: 1.6; color: var(--muted); margin: 0px; padding: 0px 4px 24px;"><span class="sc-interp">Every engineer is fully qualified, background-checked and covered by comprehensive liability insurance.</span></p></div>
+          </div>
+        
+          <div data-dc-tpl="287" style="border-bottom: 1px solid var(--line);">
+            <button data-dc-tpl="288" style="width: 100%; background: none; border: 0px; cursor: pointer; text-align: left; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 4px;">
+              <span data-dc-tpl="289" style="font-weight: 700; font-size: 18px; letter-spacing: -0.01em; color: var(--ink);"><span class="sc-interp">Do you handle both residential and commercial work?</span></span>
+              <span data-dc-tpl="290" style="display: inline-block; flex: 0 0 auto; font-size: 26px; line-height: 1; color: var(--accent); transform: rotate(45deg); transition: transform 0.3s;">+</span>
+            </button>
+            <div data-dc-tpl="291" style="max-height: 300px; opacity: 1; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s;"><p data-dc-tpl="292" style="font-size: 16px; line-height: 1.6; color: var(--muted); margin: 0px; padding: 0px 4px 24px;"><span class="sc-interp">We do. From a single tap to full commercial maintenance contracts, we work with homeowners, landlords and businesses.</span></p></div>
+          </div>
+        
+          <div data-dc-tpl="287" style="border-bottom: 1px solid var(--line);">
+            <button data-dc-tpl="288" style="width: 100%; background: none; border: 0px; cursor: pointer; text-align: left; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 4px;">
+              <span data-dc-tpl="289" style="font-weight: 700; font-size: 18px; letter-spacing: -0.01em; color: var(--ink);"><span class="sc-interp">What should I do before the plumber arrives?</span></span>
+              <span data-dc-tpl="290" style="display: inline-block; flex: 0 0 auto; font-size: 26px; line-height: 1; color: var(--accent); transform: rotate(0deg); transition: transform 0.3s;">+</span>
+            </button>
+            <div data-dc-tpl="291" style="max-height: 0px; opacity: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s;"><p data-dc-tpl="292" style="font-size: 16px; line-height: 1.6; color: var(--muted); margin: 0px; padding: 0px 4px 24px;"><span class="sc-interp">For leaks or bursts, turn off your main water supply if you can and clear access to the affected area. We'll guide you on the phone if needed.</span></p></div>
+          </div>
+        
+          <div data-dc-tpl="287" style="border-bottom: 1px solid var(--line);">
+            <button data-dc-tpl="288" style="width: 100%; background: none; border: 0px; cursor: pointer; text-align: left; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 4px;">
+              <span data-dc-tpl="289" style="font-weight: 700; font-size: 18px; letter-spacing: -0.01em; color: var(--ink);"><span class="sc-interp">Do you offer weekend service?</span></span>
+              <span data-dc-tpl="290" style="display: inline-block; flex: 0 0 auto; font-size: 26px; line-height: 1; color: var(--accent); transform: rotate(0deg); transition: transform 0.3s;">+</span>
+            </button>
+            <div data-dc-tpl="291" style="max-height: 0px; opacity: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s;"><p data-dc-tpl="292" style="font-size: 16px; line-height: 1.6; color: var(--muted); margin: 0px; padding: 0px 4px 24px;"><span class="sc-interp">Yes — we operate 7 days a week, including weekends and public holidays, at no premium for planned visits.</span></p></div>
+          </div>
+        
+      </div>
+    </div>
+  </div></section><section data-dc-tpl="293" id="contact" style="padding: clamp(56px, 8vw, 100px) 0px;">
+  <div data-dc-tpl="294" style="max-width: 1180px; margin: 0px auto; padding: 0px 24px;">
+    <div data-dc-tpl="295" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 330px), 1fr)); gap: clamp(28px, 4vw, 40px); align-items: start;">
+      <div data-dc-tpl="296">
+        <div data-dc-tpl="297" style="font-weight: 700; font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px;">Get in touch</div>
+        <h2 data-dc-tpl="298" style="font-weight: 800; font-size: clamp(28px, 4.2vw, 46px); line-height: 1.06; letter-spacing: -0.028em; margin: 0px 0px 18px;">Request a visit or quote</h2>
+        <p data-dc-tpl="299" style="font-size: 17px; line-height: 1.62; color: var(--muted); margin: 0px 0px 24px;">Not ready to call? Send a few details and we'll come back to you fast — usually within the hour during working times.</p>
+        <div data-dc-tpl="300" style="border-radius: 22px; overflow: hidden; min-height: 220px; background: repeating-linear-gradient(135deg,rgba(110,92,240,.06) 0 16px,rgba(34,195,201,.05) 16px 32px),var(--grad-soft); display: flex; align-items: flex-end; padding: 16px; margin-bottom: 18px;">
+          <span data-dc-tpl="301" style="font: 500 12px / 1 &quot;Courier New&quot;, monospace; color: rgb(125, 114, 176); background: rgba(255, 255, 255, 0.72); padding: 7px 12px; border-radius: 999px;">map · Keizersgracht 123, Amsterdam</span>
+        </div>
+        <div data-dc-tpl="302" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px;">
+          <div data-dc-tpl="303" style="background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 16px;"><div data-dc-tpl="304" style="font-size: 12.5px; color: var(--muted); font-weight: 600; margin-bottom: 4px;">Call us</div><a data-dc-tpl="305" href="tel:+31201234567" style="font-weight: 800; font-size: 16px;">020 123 4567</a></div>
+          <div data-dc-tpl="306" style="background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 16px;"><div data-dc-tpl="307" style="font-size: 12.5px; color: var(--muted); font-weight: 600; margin-bottom: 4px;">Email</div><div data-dc-tpl="308" style="font-weight: 800; font-size: 16px;">hello@aquaflow.nl</div></div>
+          <div data-dc-tpl="309" style="background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 16px;"><div data-dc-tpl="310" style="font-size: 12.5px; color: var(--muted); font-weight: 600; margin-bottom: 4px;">Address</div><div data-dc-tpl="311" style="font-weight: 700; font-size: 14.5px;">Keizersgracht 123, Amsterdam</div></div>
+          <div data-dc-tpl="312" style="background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 16px;"><div data-dc-tpl="313" style="font-size: 12.5px; color: var(--muted); font-weight: 600; margin-bottom: 4px;">Hours</div><div data-dc-tpl="314" style="font-weight: 700; font-size: 14.5px;">Mon–Sun · 24/7 emergency</div></div>
+        </div>
+      </div>
+      <div data-dc-tpl="315" style="background: var(--card); border: 1px solid var(--line); border-radius: 26px; padding: clamp(22px, 3vw, 34px); box-shadow: rgba(20, 22, 30, 0.3) 0px 30px 60px -38px;">
+        
+        <form data-dc-tpl="319">
+          <div data-dc-tpl="320" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 14px; margin-bottom: 14px;">
+            <label data-dc-tpl="321" style="display: block;"><span data-dc-tpl="322" style="display: block; font-size: 13px; font-weight: 600; color: rgb(58, 59, 65); margin-bottom: 7px;">Name</span><input data-dc-tpl="323" placeholder="Your name" value="" style="width: 100%; border: 1.5px solid var(--line); background: var(--bg); border-radius: 13px; padding: 13px 15px; font-size: 15px; color: var(--ink);"></label>
+            <label data-dc-tpl="324" style="display: block;"><span data-dc-tpl="325" style="display: block; font-size: 13px; font-weight: 600; color: rgb(58, 59, 65); margin-bottom: 7px;">Phone</span><input data-dc-tpl="326" placeholder="06 1234 5678" value="" style="width: 100%; border: 1.5px solid var(--line); background: var(--bg); border-radius: 13px; padding: 13px 15px; font-size: 15px; color: var(--ink);"></label>
+          </div>
+          <div data-dc-tpl="327" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 14px; margin-bottom: 14px;">
+            <label data-dc-tpl="328" style="display: block;"><span data-dc-tpl="329" style="display: block; font-size: 13px; font-weight: 600; color: rgb(58, 59, 65); margin-bottom: 7px;">Email</span><input data-dc-tpl="330" placeholder="you@email.com" value="" style="width: 100%; border: 1.5px solid var(--line); background: var(--bg); border-radius: 13px; padding: 13px 15px; font-size: 15px; color: var(--ink);"></label>
+            <label data-dc-tpl="331" style="display: block;"><span data-dc-tpl="332" style="display: block; font-size: 13px; font-weight: 600; color: rgb(58, 59, 65); margin-bottom: 7px;">Postcode</span><input data-dc-tpl="333" placeholder="1015 CW" value="" style="width: 100%; border: 1.5px solid var(--line); background: var(--bg); border-radius: 13px; padding: 13px 15px; font-size: 15px; color: var(--ink);"></label>
+          </div>
+          <label data-dc-tpl="334" style="display: block; margin-bottom: 14px;"><span data-dc-tpl="335" style="display: block; font-size: 13px; font-weight: 600; color: rgb(58, 59, 65); margin-bottom: 7px;">Service needed</span>
+            <select data-dc-tpl="336" style="width: 100%; border: 1.5px solid var(--line); background: var(--bg); border-radius: 13px; padding: 13px 15px; font-size: 15px; color: var(--ink);">
+              <option data-dc-tpl="337" value="">Select a service…</option>
+              <option data-dc-tpl="338">Emergency plumbing</option><option data-dc-tpl="339">Leak detection &amp; repair</option><option data-dc-tpl="340">Drain unblocking</option><option data-dc-tpl="341">Pipe repair / replacement</option><option data-dc-tpl="342">Bathroom &amp; kitchen</option><option data-dc-tpl="343">Boiler &amp; water heater</option><option data-dc-tpl="344">Installations &amp; fixtures</option><option data-dc-tpl="345">Commercial plumbing</option>
+            </select>
+          </label>
+          <label data-dc-tpl="346" style="display: block; margin-bottom: 16px;"><span data-dc-tpl="347" style="display: block; font-size: 13px; font-weight: 600; color: rgb(58, 59, 65); margin-bottom: 7px;">Message</span><textarea data-dc-tpl="348" placeholder="Briefly describe the problem and a preferred visit time…" rows="3" style="width: 100%; border: 1.5px solid var(--line); background: var(--bg); border-radius: 13px; padding: 13px 15px; font-size: 15px; color: var(--ink); resize: vertical; min-height: 84px;"></textarea></label>
+          <label data-dc-tpl="349" style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px; cursor: pointer; font-size: 14.5px; color: rgb(58, 59, 65);"><input data-dc-tpl="350" type="checkbox" style="width: 18px; height: 18px; accent-color: rgb(79, 126, 242);"> This is an emergency — please prioritise</label>
+          <button data-dc-tpl="351" type="submit" class="scp1" style="width: 100%; background: var(--grad-cta); color: rgb(255, 255, 255); font-weight: 800; font-size: 17px; padding: 16px; border: 0px; border-radius: 14px; cursor: pointer; box-shadow: rgba(71, 107, 222, 0.55) 0px 16px 32px -14px;">Request my appointment →</button>
+          <p data-dc-tpl="352" style="font-size: 12.5px; color: var(--muted); text-align: center; margin: 14px 0px 0px;">No obligation · Fixed quote before any work · Reply within the hour</p>
+        </form>
+      </div>
+    </div>
+  </div></section><footer data-dc-tpl="353" style="background: var(--ink); color: rgb(217, 218, 224); border-radius: 36px 36px 0px 0px; margin-top: 20px;">
+  <div data-dc-tpl="354" style="max-width: 1180px; margin: 0px auto; padding: clamp(48px, 6vw, 76px) 24px 30px;">
+    <div data-dc-tpl="355" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr)); gap: 36px; padding-bottom: 46px; border-bottom: 1px solid rgba(255, 255, 255, 0.12);">
+      <div data-dc-tpl="356" style="grid-column: 1 / -1; max-width: 340px;">
+        <div data-dc-tpl="357" style="display: flex; align-items: baseline; gap: 1px; font-weight: 800; font-size: 26px; letter-spacing: -0.02em; margin-bottom: 16px;"><span data-dc-tpl="358" style="color: rgb(255, 255, 255);">Aqua</span><span data-dc-tpl="359" style="background-image: ; background-position-x: ; background-position-y: ; background-size: ; background-repeat: ; background-attachment: ; background-origin: ; background-clip: text; background-color: ; color: transparent; font-style: italic;">Flow</span></div>
+        <p data-dc-tpl="360" style="font-size: 14.5px; line-height: 1.6; color: rgb(159, 161, 171); margin: 0px 0px 18px;">Certified plumbing &amp; heating for Amsterdam homes and businesses. Fast, clean, guaranteed — 24/7.</p>
+        <div data-dc-tpl="361" style="display: flex; gap: 9px;">
+          <a data-dc-tpl="362" href="https://templates.getgrowthrocket.com/plumber-01/#" aria-label="Facebook" class="scpb" style="width: 38px; height: 38px; border-radius: 11px; background: rgba(255, 255, 255, 0.08); display: flex; align-items: center; justify-content: center; color: rgb(217, 218, 224);"><svg data-dc-tpl="363" viewBox="0 0 24 24" width="17" height="17" fill="currentColor"><path data-dc-tpl="364" d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.15 8.44 9.94v-7.03H7.9v-2.9h2.54V9.85c0-2.52 1.49-3.91 3.78-3.91 1.1 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.78-1.63 1.57v1.89h2.78l-.44 2.9h-2.34V22c4.78-.79 8.44-4.94 8.44-9.94z"></path></svg></a>
+          <a data-dc-tpl="365" href="https://templates.getgrowthrocket.com/plumber-01/#" aria-label="LinkedIn" class="scpb" style="width: 38px; height: 38px; border-radius: 11px; background: rgba(255, 255, 255, 0.08); display: flex; align-items: center; justify-content: center; color: rgb(217, 218, 224);"><svg data-dc-tpl="366" viewBox="0 0 24 24" width="17" height="17" fill="currentColor"><path data-dc-tpl="367" d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.8 0 0 .78 0 1.73v20.54C0 23.22.8 24 1.77 24h20.45C23.2 24 24 23.22 24 22.27V1.73C24 .78 23.2 0 22.22 0z"></path></svg></a>
+          <a data-dc-tpl="368" href="https://templates.getgrowthrocket.com/plumber-01/#" aria-label="Instagram" class="scpb" style="width: 38px; height: 38px; border-radius: 11px; background: rgba(255, 255, 255, 0.08); display: flex; align-items: center; justify-content: center; color: rgb(217, 218, 224);"><svg data-dc-tpl="369" viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2"><rect data-dc-tpl="370" x="3" y="3" width="18" height="18" rx="5.2"></rect><circle data-dc-tpl="371" cx="12" cy="12" r="4"></circle><circle data-dc-tpl="372" cx="17.2" cy="6.8" r="1.15" fill="currentColor" stroke="none"></circle></svg></a>
+        </div>
+      </div>
+      <div data-dc-tpl="373">
+        <div data-dc-tpl="374" style="font-weight: 700; font-size: 14px; color: rgb(255, 255, 255); margin-bottom: 16px;">Company</div>
+        <div data-dc-tpl="375" style="display: flex; flex-direction: column; gap: 11px; font-size: 14.5px; color: rgb(159, 161, 171);">
+          <a data-dc-tpl="376" href="https://templates.getgrowthrocket.com/plumber-01/#about" class="scpc">About us</a><a data-dc-tpl="377" href="https://templates.getgrowthrocket.com/plumber-01/#reviews" class="scpc">Reviews</a><a data-dc-tpl="378" href="https://templates.getgrowthrocket.com/plumber-01/#faq" class="scpc">FAQ</a><a data-dc-tpl="379" href="https://templates.getgrowthrocket.com/plumber-01/#contact" class="scpc">Contact</a>
+        </div>
+      </div>
+      <div data-dc-tpl="380">
+        <div data-dc-tpl="381" style="font-weight: 700; font-size: 14px; color: rgb(255, 255, 255); margin-bottom: 16px;">Services</div>
+        <div data-dc-tpl="382" style="display: flex; flex-direction: column; gap: 11px; font-size: 14.5px; color: rgb(159, 161, 171);">
+          <a data-dc-tpl="383" href="https://templates.getgrowthrocket.com/plumber-01/#services" class="scpc">Emergency plumbing</a><a data-dc-tpl="384" href="https://templates.getgrowthrocket.com/plumber-01/#services" class="scpc">Leak repair</a><a data-dc-tpl="385" href="https://templates.getgrowthrocket.com/plumber-01/#services" class="scpc">Drain unblocking</a><a data-dc-tpl="386" href="https://templates.getgrowthrocket.com/plumber-01/#services" class="scpc">Boiler &amp; heating</a>
+        </div>
+      </div>
+      <div data-dc-tpl="387">
+        <div data-dc-tpl="388" style="font-weight: 700; font-size: 14px; color: rgb(255, 255, 255); margin-bottom: 16px;">Areas</div>
+        <div data-dc-tpl="389" style="display: flex; flex-direction: column; gap: 11px; font-size: 14.5px; color: rgb(159, 161, 171);">
+          <a data-dc-tpl="390" href="https://templates.getgrowthrocket.com/plumber-01/#areas" class="scpc">Amsterdam</a><a data-dc-tpl="391" href="https://templates.getgrowthrocket.com/plumber-01/#areas" class="scpc">Haarlem</a><a data-dc-tpl="392" href="https://templates.getgrowthrocket.com/plumber-01/#areas" class="scpc">Utrecht</a><a data-dc-tpl="393" href="https://templates.getgrowthrocket.com/plumber-01/#areas" class="scpc">Amstelveen</a>
+        </div>
+      </div>
+      <div data-dc-tpl="394">
+        <div data-dc-tpl="395" style="font-weight: 700; font-size: 14px; color: rgb(255, 255, 255); margin-bottom: 16px;">Contact</div>
+        <div data-dc-tpl="396" style="display: flex; flex-direction: column; gap: 11px; font-size: 14.5px; color: rgb(159, 161, 171);">
+          <a data-dc-tpl="397" href="tel:+31201234567" class="scpc">020 123 4567</a><span data-dc-tpl="398">hello@aquaflow.nl</span><span data-dc-tpl="399">Keizersgracht 123<br data-dc-tpl="400">1015 CW Amsterdam</span>
+        </div>
+      </div>
+    </div>
+    <div data-dc-tpl="401" style="display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: center; padding-top: 24px; font-size: 13px; color: rgb(128, 130, 140);">
+      <span data-dc-tpl="402">© 2026 AquaFlow Plumbing &amp; Heating · KVK 87654321 · BTW NL004567891B01</span>
+      <div data-dc-tpl="403" style="display: flex; gap: 20px;"><a data-dc-tpl="404" href="https://templates.getgrowthrocket.com/plumber-01/#" class="scpc">Privacy</a><a data-dc-tpl="405" href="https://templates.getgrowthrocket.com/plumber-01/#" class="scpc">Terms</a><a data-dc-tpl="406" href="https://templates.getgrowthrocket.com/plumber-01/#" class="scpc">Licenses</a></div>
+    </div>
+  </div></footer><a data-dc-tpl="407" href="https://wa.me/31612345678" target="_blank" aria-label="WhatsApp" style="position: fixed; right: 18px; bottom: 24px; z-index: 85; width: 58px; height: 58px; border-radius: 999px; background: rgb(37, 211, 102); display: flex; align-items: center; justify-content: center; color: rgb(255, 255, 255); box-shadow: rgba(37, 211, 102, 0.7) 0px 16px 34px -10px;"><span data-dc-tpl="408" style="font-size: 25px; line-height: 1;">✆</span></a></div></div></div>
+<script type="text/x-dc" data-dc-script="" data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:900},&quot;accentTheme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Industrial Blue&quot;,&quot;Steel Teal&quot;,&quot;Deep Indigo&quot;],&quot;default&quot;:&quot;Industrial Blue&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Theme&quot;,&quot;label&quot;:&quot;Gradient palette&quot;},&quot;showTopBar&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Theme&quot;,&quot;label&quot;:&quot;Show top contact bar&quot;}}">
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    this.rootRef = React.createRef();
+    this.galRef = React.createRef();
+    this.state = {
+      vw: (typeof window !== 'undefined' ? window.innerWidth : 1200),
+      scrolled: false,
+      menuOpen: false,
+      openFaq: 0,
+      form: { name:'', phone:'', email:'', service:'', location:'', message:'' },
+      sent: false
+    };
+  }
+  componentDidMount(){
+    this._r = () => this.setState({ vw: window.innerWidth });
+    this._s = () => { const v = window.scrollY > 16; if (v !== this.state.scrolled) this.setState({ scrolled: v }); };
+    window.addEventListener('resize', this._r);
+    window.addEventListener('scroll', this._s, { passive:true });
+    this.applyTheme();
+  }
+  componentDidUpdate(prev){ if (!prev || prev.accentTheme !== this.props.accentTheme) this.applyTheme(); }
+  componentWillUnmount(){ window.removeEventListener('resize', this._r); window.removeEventListener('scroll', this._s); }
+  applyTheme(){
+    const el = this.rootRef && this.rootRef.current; if (!el) return;
+    const STEEL = 'linear-gradient(135deg,#F6F8FC 0%,#EDF2F7 45%,#E2EBF3 100%)';
+    const map = {
+      'Industrial Blue': { g:'linear-gradient(115deg,#5D62F3 0%,#4E7BF0 52%,#38B6D8 100%)', a:'#4F7EF2', a2:'#3DB4D9', gs:STEEL },
+      'Steel Teal':      { g:'linear-gradient(115deg,#3F6FE6 0%,#3C9AD6 55%,#37C0C7 100%)', a:'#2F86D8', a2:'#33B6C4', gs:STEEL },
+      'Deep Indigo':     { g:'linear-gradient(115deg,#5048E0 0%,#4E6BE8 50%,#3DA6DC 100%)', a:'#5A57E6', a2:'#3DB4D9', gs:STEEL }
+    };
+    const c = map[this.props.accentTheme] || map['Industrial Blue'];
+    el.style.setProperty('--grad', c.g);
+    el.style.setProperty('--grad-soft', c.gs);
+    el.style.setProperty('--accent', c.a);
+    el.style.setProperty('--accent-2', c.a2);
+  }
+  field(k){ return (e) => { const val = e && e.target ? e.target.value : ''; this.setState(s => ({ form: Object.assign({}, s.form, { [k]: val }) })); }; }
+  img(id, w, h){
+    const base = {
+      plumberSink: 'https://plus.unsplash.com/premium_photo-1750594941294-91dcf3896ad5',
+      boiler:      'https://plus.unsplash.com/premium_photo-1750594940949-6cd512242c62',
+      showerHead:  'https://plus.unsplash.com/premium_photo-1750594940960-0c1790168431',
+      pipeFitting: 'https://plus.unsplash.com/premium_photo-1750594942711-58fa23b80518',
+      pipeFusion:  'https://plus.unsplash.com/premium_photo-1750594941733-778d58dca208',
+      faucet:      'https://plus.unsplash.com/premium_photo-1750594940989-5c93275f7b64',
+      fixtures:    'https://plus.unsplash.com/premium_photo-1750594942743-1abf9da981f7',
+      toolbox:     'https://plus.unsplash.com/premium_photo-1750594942636-1aad593584d8',
+      youngPlumber:'https://plus.unsplash.com/premium_photo-1663013675008-bd5a7898ac4f',
+      lieke:       'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2'
+    };
+    return base[id] + '?auto=format&fit=crop&w=' + (w||900) + '&h=' + (h||700) + '&q=72';
+  }
+  cover(id, w, h){ return { backgroundImage: 'url(' + this.img(id, w, h) + ')', backgroundSize:'cover', backgroundPosition:'center' }; }
+  renderVals(){
+    const vw = this.state.vw;
+    const isMobile = vw < 920;
+    const telLink = 'tel:+31201234567';
+    const waLink = 'https://wa.me/31612345678';
+
+    const nav = [
+      { label:'Home', href:'#home' }, { label:'Services', href:'#services' }, { label:'About', href:'#about' },
+      { label:'Reviews', href:'#reviews' }, { label:'Areas', href:'#areas' }, { label:'FAQ', href:'#faq' }, { label:'Contact', href:'#contact' }
+    ];
+
+    const stats = [
+      { num:'15+', label:'Years of experience', sub:'Serving Amsterdam since 2010' },
+      { num:'12,000+', label:'Jobs completed', sub:'Homes & businesses' },
+      { num:'4.9/5', label:'Average rating', sub:'From 250+ reviews' },
+      { num:'~60 min', label:'Average response', sub:'For genuine emergencies' }
+    ];
+
+    const svBase = { borderRadius:'24px', padding:'18px', transition:'transform .3s ease, box-shadow .3s ease' };
+    const mkService = (imgId, title, desc, featured) => {
+      const cardStyle = featured
+        ? Object.assign({}, svBase, { background:'var(--grad)', color:'#fff', boxShadow:'0 30px 56px -30px rgba(60,60,140,.7)' })
+        : Object.assign({}, svBase, { background:'var(--card)', border:'1px solid var(--line)' });
+      return {
+        title, desc, featured,
+        cardStyle,
+        thumbStyle: Object.assign({ borderRadius:'16px', height:'130px', marginBottom:'18px' }, this.cover(imgId, 520, 360)),
+        descStyle: { fontSize:'14.5px', lineHeight:'1.55', margin:'9px 0 0', color: featured ? 'rgba(255,255,255,.9)' : 'var(--muted)' },
+        arrowStyle: { fontSize:'17px', color: featured ? '#fff' : 'var(--accent)', flex:'none' }
+      };
+    };
+    const services = [
+      mkService('plumberSink', 'Emergency Plumbing', "Burst pipes, floods and urgent failures — a certified plumber at your door, day or night.", true),
+      mkService('pipeFitting', 'Leak Detection & Repair', 'Pinpoint hidden leaks fast with non-invasive tools, then fix them for good.', false),
+      mkService('pipeFusion', 'Drain Unblocking', 'Blocked sinks, toilets and drains cleared quickly, cleanly and without the mess.', false),
+      mkService('youngPlumber', 'Pipe Repair & Replacement', 'Worn, corroded or damaged pipework repaired or fully replaced to last.', false),
+      mkService('faucet', 'Bathroom & Kitchen', 'Taps, sinks, showers and full fit-outs installed with a flawless finish.', false),
+      mkService('boiler', 'Boiler & Water Heater', 'Servicing, repair and installation of boilers, geysers and hot-water systems.', false),
+      mkService('fixtures', 'Installations & Fixtures', 'Dishwashers, washing machines, toilets and fixtures fitted right, first time.', false),
+      mkService('toolbox', 'Commercial Plumbing', 'Reliable maintenance and rapid response for offices, retail and hospitality.', false)
+    ];
+
+    const whyItems = [
+      { icon:'⚡', title:'Fast response times', desc:'On-site within the hour for genuine emergencies, seven days a week.' },
+      { icon:'✓', title:'Certified & insured', desc:'Fully qualified, vetted engineers with complete liability cover.' },
+      { icon:'€', title:'Transparent fixed pricing', desc:'Clear quotes before we start. No surprises, no call-out tricks.' },
+      { icon:'◇', title:'Clean, respectful work', desc:'Shoe covers, dust sheets and a spotless finish, every visit.' },
+      { icon:'★', title:'Guaranteed repairs', desc:'Workmanship backed by a written guarantee for total peace of mind.' },
+      { icon:'◉', title:'Local, 7-day service', desc:'Amsterdam-based teams who know your area and your buildings.' }
+    ];
+
+    const stepData = [
+      { n:'1', title:'Request service', desc:"Book online, call or WhatsApp — just tell us what's wrong." },
+      { n:'2', title:'We confirm your slot', desc:'Get a clear time window and an upfront price guide.' },
+      { n:'3', title:'Your plumber arrives', desc:'A certified engineer arrives on time, fully equipped.' },
+      { n:'4', title:'Diagnose & fix', desc:'We explain the issue and fix it properly, on the spot where possible.' },
+      { n:'5', title:'Test & clean up', desc:'We test everything, tidy up and leave your home as we found it.' }
+    ];
+    const steps = stepData.map((s, i) => Object.assign({}, s, {
+      lineStyle: { width:'2px', flex:'1', minHeight:'18px', background:'var(--line)', display: i === stepData.length - 1 ? 'none' : 'block', marginTop:'4px' }
+    }));
+
+    const gallery = [
+      { id:'faucet' }, { id:'showerHead' }, { id:'pipeFitting' },
+      { id:'fixtures' }, { id:'boiler' }, { id:'pipeFusion' }, { id:'plumberSink' }
+    ].map((g) => ({ style: Object.assign({
+      flex:'0 0 auto', width:'min(86vw,420px)', height:'300px',
+      borderRadius:'22px', overflow:'hidden', scrollSnapAlign:'start'
+    }, this.cover(g.id, 640, 480)) }));
+    const galScroll = (dir) => () => { const el = this.galRef.current; if (el) el.scrollBy({ left: dir * Math.min(el.clientWidth * 0.85, 436), behavior:'smooth' }); };
+
+    const team = [
+      { id:'youngPlumber', name:'Daan Visser', role:'Founder & Master Plumber', bio:'25 years on the tools. Leads every complex install and the emergency rota personally.' },
+      { id:'lieke', name:'Lieke de Boer', role:'Heating & Boiler Specialist', bio:'Gas-safe certified, with a knack for diagnosing the boiler faults others give up on.' },
+      { id:'plumberSink', name:'Sem Janssen', role:'Lead Service Engineer', bio:'Your most likely first knock — fast, tidy and great at explaining what went wrong.' }
+    ].map((t) => ({ name:t.name, role:t.role, bio:t.bio, thumbStyle: Object.assign({ borderRadius:'18px', height:'230px' }, this.cover(t.id, 520, 600)) }));
+
+    const reviews = [
+      { quote:'They arrived within 40 minutes on a Sunday and fixed a burst pipe before it ruined the floor. Calm, clean and fairly priced.', name:'Marieke H.', meta:'Amsterdam-Zuid · Emergency repair', source:'Google' },
+      { quote:'Booked a full bathroom refit. The finish is immaculate and they stuck to the quote to the cent. The most professional trades I have used.', name:'Thomas R.', meta:'Haarlem · Bathroom install', source:'Google' },
+      { quote:'Our café kitchen flooded an hour before service. AquaFlow had us running again the same morning. Now on a maintenance plan with them.', name:'Priya N.', meta:'Amsterdam-Centrum · Commercial', source:'Trustpilot' }
+    ];
+
+    const areas = ['Haarlem','Utrecht','Amstelveen','Zaandam','Almere','Hilversum','Diemen','Weesp','Hoofddorp','Purmerend','Bussum','Uithoorn'];
+
+    const posts = [
+      { id:'plumberSink', cat:'Maintenance', read:'5 min read', title:'6 warning signs you have a hidden water leak' },
+      { id:'pipeFusion', cat:'Emergency', read:'3 min read', title:'What to do in the first 5 minutes of a burst pipe' },
+      { id:'pipeFitting', cat:'Tips', read:'4 min read', title:'Keep your drains clear and avoid a call-out' }
+    ].map((p) => ({ cat:p.cat, read:p.read, title:p.title, thumbStyle: Object.assign({ height:'180px' }, this.cover(p.id, 520, 360)) }));
+
+    const faqData = [
+      { q:'Do you offer emergency plumbing?', a:"Yes — we're available 24/7, 365 days a year for genuine emergencies, with an engineer typically on-site within the hour across Amsterdam." },
+      { q:'Do you serve my area?', a:"We cover Amsterdam and the surrounding region including Haarlem, Utrecht, Amstelveen, Almere and more. Not sure? Send your postcode and we'll confirm in minutes." },
+      { q:'How quickly can you arrive?', a:'For emergencies we aim to be with you within 60 minutes. Standard appointments are usually available same-day or next-day.' },
+      { q:'Do you provide fixed quotes?', a:"Yes. You'll get a clear, upfront price before any work begins — no hidden call-out fees or surprise charges." },
+      { q:'Are you certified and insured?', a:'Every engineer is fully qualified, background-checked and covered by comprehensive liability insurance.' },
+      { q:'Do you handle both residential and commercial work?', a:'We do. From a single tap to full commercial maintenance contracts, we work with homeowners, landlords and businesses.' },
+      { q:'What should I do before the plumber arrives?', a:"For leaks or bursts, turn off your main water supply if you can and clear access to the affected area. We'll guide you on the phone if needed." },
+      { q:'Do you offer weekend service?', a:'Yes — we operate 7 days a week, including weekends and public holidays, at no premium for planned visits.' }
+    ];
+    const faqs = faqData.map((f, i) => {
+      const open = this.state.openFaq === i;
+      return {
+        q: f.q, a: f.a,
+        onToggle: () => this.setState(s => ({ openFaq: s.openFaq === i ? -1 : i })),
+        bodyStyle: { maxHeight: open ? '300px' : '0px', opacity: open ? 1 : 0, overflow:'hidden', transition:'max-height .4s cubic-bezier(.4,0,.2,1), opacity .35s ease' },
+        iconStyle: { display:'inline-block', flex:'none', fontSize:'26px', lineHeight:'1', color:'var(--accent)', transform: open ? 'rotate(45deg)' : 'rotate(0deg)', transition:'transform .3s ease' }
+      };
+    });
+
+    return {
+      rootRef: this.rootRef,
+      showTopBar: this.props.showTopBar !== false,
+      isMobile, telLink, waLink, nav,
+      navListStyle: isMobile ? { display:'none' } : { display:'flex', gap:'30px', alignItems:'center' },
+      headerCallStyle: (vw < 1080) ? { display:'none' } : { display:'inline-flex', alignItems:'center', gap:'7px', fontWeight:700, fontSize:'15px', color:'var(--ink)' },
+      burgerStyle: isMobile ? { display:'flex', flexDirection:'column', gap:'5px', alignItems:'flex-end', background:'none', border:0, cursor:'pointer', padding:'8px' } : { display:'none' },
+      menuOpen: this.state.menuOpen,
+      toggleMenu: () => this.setState(s => ({ menuOpen: !s.menuOpen })),
+      closeMenu: () => this.setState({ menuOpen: false }),
+      headerStyle: {
+        display:'flex', alignItems:'center', justifyContent:'space-between', gap:'24px',
+        background:'var(--card)', border:'1px solid var(--line)', borderRadius:'999px',
+        padding: this.state.scrolled ? '9px 12px 9px 24px' : '12px 14px 12px 26px',
+        boxShadow: this.state.scrolled ? '0 16px 40px -18px rgba(20,22,30,.28)' : '0 4px 16px -10px rgba(20,22,30,.2)',
+        transition:'padding .3s ease, box-shadow .3s ease'
+      },
+      waStyle: {
+        position:'fixed', right:'18px', bottom: isMobile ? '90px' : '24px', zIndex:85,
+        width:'58px', height:'58px', borderRadius:'999px', background:'#25D366',
+        display:'flex', alignItems:'center', justifyContent:'center', color:'#fff',
+        boxShadow:'0 16px 34px -10px rgba(37,211,102,.7)'
+      },
+      galRef: this.galRef, onGalPrev: galScroll(-1), onGalNext: galScroll(1),
+      heroImgStyle: Object.assign({ position:'relative', borderRadius:'30px', overflow:'hidden', minHeight:'clamp(380px,46vw,520px)', boxShadow:'0 40px 80px -40px rgba(40,40,80,.4)' }, this.cover('youngPlumber', 900, 1000)),
+      aboutImgStyle: Object.assign({ borderRadius:'28px', overflow:'hidden', minHeight:'clamp(320px,38vw,440px)' }, this.cover('plumberSink', 900, 760)),
+      ctaImgStyle: Object.assign({ borderRadius:'24px', overflow:'hidden', minHeight:'300px', border:'1px solid rgba(255,255,255,.22)' }, this.cover('toolbox', 800, 700)),
+      stats, services, whyItems, steps, gallery, team, reviews, areas, posts, faqs,
+      form: this.state.form, sent: this.state.sent,
+      onName: this.field('name'), onPhone: this.field('phone'), onEmail: this.field('email'),
+      onService: this.field('service'), onLocation: this.field('location'), onMessage: this.field('message'),
+      onSubmit: (e) => { if (e && e.preventDefault) e.preventDefault(); this.setState({ sent: true }); }
+    };
+  }
+}
+</script>
+
+
+</body></html>
