@@ -19,8 +19,8 @@ type BookableService = {
   isConsultation?: boolean;
 };
 
-const TENANT_SLUG = "vakman-electrical";
-const SITE_SLUG = "vakman-electrical";
+const TENANT_SLUG = "plumber1";
+const SITE_SLUG = "plumber1";
 const API_BASE = `https://api.getgrowthrocket.com/api/v1/public/tenants/${TENANT_SLUG}/sites/${SITE_SLUG}`;
 
 const INDUSTRIES: { value: string; label: Translation }[] = [
@@ -70,7 +70,6 @@ const INDUSTRIES: { value: string; label: Translation }[] = [
 const REGEX = {
   phone: /^\+?[0-9\s\-()]{7,20}$/,
   email: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-  url: /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/,
 };
 
 const INITIAL_FORM_DATA = {
@@ -81,8 +80,6 @@ const INITIAL_FORM_DATA = {
   industry: "",
   industryOther: "",
   serviceArea: "",
-  hasWebsite: "No",
-  websiteUrl: "",
   service: "",
   message: "",
 };
@@ -90,7 +87,6 @@ const INITIAL_FORM_DATA = {
 const INITIAL_FIELD_ERRORS = {
   phone: "",
   email: "",
-  websiteUrl: "",
 };
 
 const LABEL_CLASS = "text-[13px] font-semibold text-muted ml-1";
@@ -158,12 +154,6 @@ export default function LeadEnquiryForm({
         nl: "Voer een geldig e-mailadres in",
       });
     }
-    if (name === "websiteUrl" && value && !REGEX.url.test(value)) {
-      nextError = t({
-        en: "Please enter a valid website URL",
-        nl: "Voer een geldige website-URL in",
-      });
-    }
     setFieldErrors((prev) => ({ ...prev, [name]: nextError }));
     return nextError === "";
   };
@@ -173,7 +163,7 @@ export default function LeadEnquiryForm({
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    if (["phone", "email", "websiteUrl"].includes(name)) {
+    if (["phone", "email"].includes(name)) {
       validateField(name, value);
     }
   };
@@ -183,12 +173,8 @@ export default function LeadEnquiryForm({
 
     const isPhoneValid = validateField("phone", formData.phone);
     const isEmailValid = validateField("email", formData.email);
-    const isUrlValid =
-      formData.hasWebsite === "Yes"
-        ? validateField("websiteUrl", formData.websiteUrl)
-        : true;
 
-    if (!isPhoneValid || !isEmailValid || !isUrlValid) return;
+    if (!isPhoneValid || !isEmailValid) return;
 
     setIsSubmitting(true);
     setError(null);
@@ -204,14 +190,9 @@ export default function LeadEnquiryForm({
           businessName: formData.businessName,
           industry: formData.industry,
           industryOther:
-            formData.industry === "Other"
-              ? formData.industryOther
-              : undefined,
+            formData.industry === "Other" ? formData.industryOther : undefined,
           serviceArea: formData.serviceArea,
           serviceId: formData.service ? Number(formData.service) : undefined,
-          hasWebsite: formData.hasWebsite === "Yes",
-          websiteUrl:
-            formData.hasWebsite === "Yes" ? formData.websiteUrl : undefined,
           message: formData.message,
           source: "PUBLIC_ENQUIRY",
           tags: ["Website", "Enquiry"],
@@ -403,48 +384,6 @@ export default function LeadEnquiryForm({
           </div>
         )}
 
-        <fieldset className="space-y-2 pt-1 lg:my-1 lg:flex lg:items-center lg:gap-5 lg:space-y-0">
-          <legend className="mb-0 ml-1 text-[13px] font-semibold text-muted">
-            {t({
-              en: "Do you currently have a website?",
-              nl: "Heb je op dit moment een website?",
-            })}
-          </legend>
-          <div className="mt-2 flex gap-4 lg:mt-0">
-            {[
-              { value: "Yes", label: { en: "Yes", nl: "Ja" } },
-              { value: "No", label: { en: "No", nl: "Nee" } },
-            ].map((opt) => (
-              <label
-                key={opt.value}
-                className="group flex cursor-pointer items-center gap-1"
-              >
-                <div className="relative flex items-center justify-center">
-                  <input
-                    type="radio"
-                    name="hasWebsite"
-                    value={opt.value}
-                    checked={formData.hasWebsite === opt.value}
-                    onChange={handleInputChange}
-                    className="sr-only"
-                  />
-                  <div
-                    className={`h-5 w-5 rounded-full border-2 transition-all ${
-                      formData.hasWebsite === opt.value
-                        ? "border-accent bg-accent"
-                        : "border-line bg-soft group-hover:border-accent/50"
-                    }`}
-                  />
-                  {formData.hasWebsite === opt.value && (
-                    <div className="absolute h-2 w-2 rounded-full bg-white" />
-                  )}
-                </div>
-                <span className="text-sm text-muted">{t(opt.label)}</span>
-              </label>
-            ))}
-          </div>
-        </fieldset>
-
         <div className="space-y-1.5">
           <label htmlFor={fieldId("service")} className={LABEL_CLASS}>
             {t({ en: "Service Needed", nl: "Gewenste dienst" })}
@@ -472,28 +411,6 @@ export default function LeadEnquiryForm({
             />
           </div>
         </div>
-
-        {formData.hasWebsite === "Yes" && (
-          <div className="space-y-1.5 lg:col-span-2">
-            <label htmlFor={fieldId("websiteUrl")} className={LABEL_CLASS}>
-              {t({ en: "Website URL", nl: "Website-URL" })}
-            </label>
-            <input
-              id={fieldId("websiteUrl")}
-              required
-              name="websiteUrl"
-              type="text"
-              value={formData.websiteUrl}
-              onChange={handleInputChange}
-              className={`${INPUT_BASE} ${fieldErrors.websiteUrl ? "border-red-500" : "border-line"}`}
-            />
-            {fieldErrors.websiteUrl && (
-              <p className="ml-1 text-[11px] font-medium text-red-500">
-                {fieldErrors.websiteUrl}
-              </p>
-            )}
-          </div>
-        )}
 
         <div className="space-y-1.5 lg:col-span-2">
           <label htmlFor={fieldId("message")} className={LABEL_CLASS}>

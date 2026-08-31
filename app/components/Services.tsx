@@ -56,7 +56,7 @@ const SERVICES: {
 function ServiceCard({ service }: { service: (typeof SERVICES)[number] }) {
   return (
     <div
-      className={`h-full rounded-3xl p-4.5 transition-[transform,box-shadow] duration-700  ease-out will-change-transform hover:-translate-y-1.5 ${
+      className={`h-full rounded-3xl p-4.5 transition-[transform,box-shadow] duration-300 ease-out transform-gpu will-change-transform hover:-translate-y-1.5 ${
         service.featured
           ? "bg-grad text-white shadow-[0_30px_56px_-30px_rgba(60,60,140,0.7)]"
           : "border border-line bg-card"

@@ -23,7 +23,7 @@ export default function Gallery() {
   return (
     <section className="section-py">
       <div className="fix">
-        <div className="mb-9.5 flex flex-wrap items-end justify-between gap-5">
+        <div className="mb-9.5 flex flex-wrap items-start justify-between gap-5">
           <div>
             <div className="mb-4 text-[13px] font-bold tracking-[0.16em] text-accent uppercase">
               Our work

@@ -63,8 +63,8 @@ type SlotsResponse = {
 type Step = "service" | "slot" | "details" | "success";
 
 const API_ORIGIN = "https://api.getgrowthrocket.com";
-const TENANT_SLUG = "vakman-electrical";
-const SITE_SLUG = "vakman-electrical";
+const TENANT_SLUG = "plumber1";
+const SITE_SLUG = "plumber1";
 const API_BASE = `${API_ORIGIN}/api/v1/public/tenants/${TENANT_SLUG}/sites/${SITE_SLUG}`;
 
 function toLocalDateKey(d: Date): string {
@@ -1188,9 +1188,7 @@ function Calendar({
             <path d="M15 18l-6-6 6-6" />
           </svg>
         </button>
-        <div className="font-semibold text-[14.5px] text-ink">
-          {monthLabel}
-        </div>
+        <div className="font-semibold text-[14.5px] text-ink">{monthLabel}</div>
         <button
           type="button"
           onClick={nextMonth}
@@ -1360,9 +1358,7 @@ function DetailsStep({
     >
       {service && slot && (
         <div className="flex items-center gap-2.5 rounded-xl bg-accent/10 border border-accent/20 px-3 py-2.5">
-          <span
-            className="bg-grad inline-flex items-center justify-center size-[32px] rounded-lg text-white shrink-0"
-          >
+          <span className="bg-grad inline-flex items-center justify-center size-[32px] rounded-lg text-white shrink-0">
             <svg
               width="15"
               height="15"
@@ -1600,9 +1596,7 @@ function SuccessStep({
 function Field({ label, children }: { label: string; children: ReactNode }) {
   return (
     <label className="flex flex-col gap-1.5">
-      <span className="font-medium text-[12.5px] text-muted">
-        {label}
-      </span>
+      <span className="font-medium text-[12.5px] text-muted">{label}</span>
       {children}
     </label>
   );
@@ -1634,9 +1628,7 @@ function SummaryRow({ label, value }: { label: string; value: string }) {
       <span className="text-[11px] uppercase tracking-[1px] text-muted">
         {label}
       </span>
-      <span className="font-medium text-[13.5px] text-ink mt-0.5">
-        {value}
-      </span>
+      <span className="font-medium text-[13.5px] text-ink mt-0.5">{value}</span>
     </div>
   );
 }
