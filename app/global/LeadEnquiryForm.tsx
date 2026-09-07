@@ -21,7 +21,7 @@ type BookableService = {
 
 const TENANT_SLUG = "plumber1";
 const SITE_SLUG = "plumber1";
-const API_BASE = `https://api.getgrowthrocket.com/api/v1/public/tenants/${TENANT_SLUG}/sites/${SITE_SLUG}`;
+const API_BASE = `https://api.getgrowthrocket.com/api/v1/public`;
 
 const INDUSTRIES: { value: string; label: Translation }[] = [
   { value: "Electrician", label: { en: "Electrician", nl: "Elektricien" } },
