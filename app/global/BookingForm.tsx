@@ -1057,23 +1057,20 @@ function SlotStep({
                     selectedSlot?.startsAt === slot.startsAt &&
                     selectedSlot?.endsAt === slot.endsAt;
                   return (
-                    <motion.button
+                    <button
                       type="button"
                       key={key}
                       data-slot={key}
                       onClick={() => onSelectSlot(slot)}
-                      whileHover={{ scale: 0.96 }}
-                      whileTap={{ scale: 0.96 }}
-                      transition={{ duration: 0.15, ease: "easeOut" }}
                       className={
-                        "shrink-0 rounded-xl border px-4 py-2.5 font-medium text-[13px] whitespace-nowrap transition-all cursor-pointer " +
+                        "shrink-0 rounded-xl border px-4 py-2.5 font-medium text-[13px] whitespace-nowrap transition-all duration-200 ease-out cursor-pointer " +
                         (active
                           ? "border-accent bg-accent text-white shadow-[0_8px_20px_-10px_rgba(79,126,242,0.5)]"
                           : "border-line bg-soft text-ink hover:border-accent/50 hover:bg-accent/5")
                       }
                     >
                       {formatTimeFromStartsAt(slot)}
-                    </motion.button>
+                    </button>
                   );
                 })}
               </div>
