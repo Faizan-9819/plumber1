@@ -23,50 +23,6 @@ const TENANT_SLUG = "plumber1";
 const SITE_SLUG = "plumber1";
 const API_BASE = `https://api.getgrowthrocket.com/api/v1/public`;
 
-const INDUSTRIES: { value: string; label: Translation }[] = [
-  { value: "Electrician", label: { en: "Electrician", nl: "Elektricien" } },
-  { value: "Plumber", label: { en: "Plumber", nl: "Loodgieter" } },
-  {
-    value: "HVAC / Heating Technician",
-    label: { en: "HVAC / Heating Technician", nl: "HVAC / Verwarmingsmonteur" },
-  },
-  {
-    value: "Solar Panel Installer",
-    label: { en: "Solar Panel Installer", nl: "Zonnepaneel-installateur" },
-  },
-  {
-    value: "EV Charging Installer",
-    label: { en: "EV Charging Installer", nl: "Laadpaal-installateur" },
-  },
-  { value: "Handyman", label: { en: "Handyman", nl: "Klusjesman" } },
-  { value: "Painter", label: { en: "Painter", nl: "Schilder" } },
-  { value: "Carpenter", label: { en: "Carpenter", nl: "Timmerman" } },
-  { value: "Tiler", label: { en: "Tiler", nl: "Tegelzetter" } },
-  { value: "Roofer", label: { en: "Roofer", nl: "Dakdekker" } },
-  {
-    value: "Construction Contractor",
-    label: { en: "Construction Contractor", nl: "Aannemer" },
-  },
-  {
-    value: "Hair Salon / Barber",
-    label: { en: "Hair Salon / Barber", nl: "Kapsalon / Barbier" },
-  },
-  {
-    value: "Beauty Salon / Spa",
-    label: { en: "Beauty Salon / Spa", nl: "Schoonheidssalon / Spa" },
-  },
-  { value: "Nail Salon", label: { en: "Nail Salon", nl: "Nagelsalon" } },
-  {
-    value: "Massage Therapist",
-    label: { en: "Massage Therapist", nl: "Massagetherapeut" },
-  },
-  {
-    value: "Fitness Trainer / Gym",
-    label: { en: "Fitness Trainer / Gym", nl: "Fitnesstrainer / Sportschool" },
-  },
-  { value: "Other", label: { en: "Other", nl: "Anders" } },
-];
-
 const REGEX = {
   phone: /^\+?[0-9\s\-()]{7,20}$/,
   email: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
@@ -76,9 +32,6 @@ const INITIAL_FORM_DATA = {
   name: "",
   phone: "",
   email: "",
-  businessName: "",
-  industry: "",
-  industryOther: "",
   serviceArea: "",
   service: "",
   message: "",
@@ -187,10 +140,6 @@ export default function LeadEnquiryForm({
           name: formData.name,
           email: formData.email,
           phone: formData.phone,
-          businessName: formData.businessName,
-          industry: formData.industry,
-          industryOther:
-            formData.industry === "Other" ? formData.industryOther : undefined,
           serviceArea: formData.serviceArea,
           serviceId: formData.service ? Number(formData.service) : undefined,
           message: formData.message,
@@ -319,23 +268,6 @@ export default function LeadEnquiryForm({
             className={`${INPUT_BASE} border-line`}
           />
         </div>
-
-        {formData.industry === "Other" && (
-          <div className="space-y-1.5 lg:col-span-2">
-            <label htmlFor={fieldId("industryOther")} className={LABEL_CLASS}>
-              {t({ en: "Please specify", nl: "Specificeer" })}
-            </label>
-            <input
-              id={fieldId("industryOther")}
-              required
-              name="industryOther"
-              type="text"
-              value={formData.industryOther}
-              onChange={handleInputChange}
-              className={`${INPUT_BASE} border-line`}
-            />
-          </div>
-        )}
 
         <div className="space-y-1.5">
           <label htmlFor={fieldId("service")} className={LABEL_CLASS}>
