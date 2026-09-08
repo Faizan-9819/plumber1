@@ -594,7 +594,7 @@ export default function BookingForm({ isOpen, onClose }: BookingFormProps) {
 
               {/* Body — make content area scrollable when content is long */}
               <div
-                className="booking-body-scroll relative px-6 lg:px-8 py-6 flex flex-col flex-1 min-h-0 max-h-[calc(100vh-64px)] overflow-y-auto touch-pan-y"
+                className="booking-body-scroll relative px-6 lg:px-8 pt-6 flex flex-col flex-1 min-h-0 max-h-[calc(100vh-64px)] overflow-y-auto touch-pan-y"
                 data-lenis-prevent
               >
                 <AnimatePresence mode="wait" custom={direction}>
@@ -665,6 +665,7 @@ export default function BookingForm({ isOpen, onClose }: BookingFormProps) {
                     </Slide>
                   )}
                 </AnimatePresence>
+                <div aria-hidden className="shrink-0 h-6" />
               </div>
             </motion.div>
           </div>
@@ -745,7 +746,7 @@ function Slide({
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: direction * -24 }}
       transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
-      className="flex-1 flex flex-col min-h-0"
+      className="grow shrink-0 flex flex-col"
     >
       {children}
     </motion.div>
@@ -952,20 +953,22 @@ function SlotStep({
   const { t, locale } = useLanguage();
   const slotsRowRef = useRef<HTMLDivElement | null>(null);
 
-  // Scroll selected slot into view horizontally
+  // Scroll selected slot into view horizontally. Scoped to the row's own
+  // scrollLeft (not scrollIntoView) so it never nudges the modal body's
+  // vertical scroll — that ancestor bleed was the source of the jerk.
   useEffect(() => {
     if (!selectedSlot || !slotsRowRef.current) return;
     const key = `${selectedSlot.startsAt}-${selectedSlot.endsAt}`;
-    const el = slotsRowRef.current.querySelector<HTMLElement>(
-      `[data-slot="${key}"]`,
-    );
-    if (el) {
-      el.scrollIntoView({
-        behavior: "smooth",
-        inline: "center",
-        block: "nearest",
-      });
-    }
+    const row = slotsRowRef.current;
+    const el = row.querySelector<HTMLElement>(`[data-slot="${key}"]`);
+    if (!el) return;
+    const rowRect = row.getBoundingClientRect();
+    const elRect = el.getBoundingClientRect();
+    const target =
+      row.scrollLeft +
+      (elRect.left - rowRect.left) -
+      (row.clientWidth - elRect.width) / 2;
+    row.scrollTo({ left: target, behavior: "smooth" });
   }, [selectedSlot]);
 
   return (
@@ -1061,8 +1064,9 @@ function SlotStep({
                       onClick={() => onSelectSlot(slot)}
                       whileHover={{ scale: 0.96 }}
                       whileTap={{ scale: 0.96 }}
+                      transition={{ duration: 0.15, ease: "easeOut" }}
                       className={
-                        "shrink-0 rounded-xl border px-4 py-2.5 font-medium text-[13px] whitespace-nowrap transition-colors cursor-pointer " +
+                        "shrink-0 rounded-xl border px-4 py-2.5 font-medium text-[13px] whitespace-nowrap transition-all cursor-pointer " +
                         (active
                           ? "border-accent bg-accent text-white shadow-[0_8px_20px_-10px_rgba(79,126,242,0.5)]"
                           : "border-line bg-soft text-ink hover:border-accent/50 hover:bg-accent/5")
