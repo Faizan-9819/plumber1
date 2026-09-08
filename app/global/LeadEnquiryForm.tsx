@@ -303,53 +303,6 @@ export default function LeadEnquiryForm({
         </div>
 
         <div className="space-y-1.5">
-          <label htmlFor={fieldId("businessName")} className={LABEL_CLASS}>
-            {t({ en: "Business Name", nl: "Bedrijfsnaam" })}
-          </label>
-          <input
-            id={fieldId("businessName")}
-            required
-            name="businessName"
-            type="text"
-            value={formData.businessName}
-            onChange={handleInputChange}
-            className={`${INPUT_BASE} border-line`}
-          />
-        </div>
-
-        <div className="space-y-1.5">
-          <label htmlFor={fieldId("industry")} className={LABEL_CLASS}>
-            {t({
-              en: "Type of Work / Industry",
-              nl: "Soort werk / Branche",
-            })}
-          </label>
-          <div className="relative">
-            <select
-              id={fieldId("industry")}
-              required
-              name="industry"
-              value={formData.industry}
-              onChange={handleInputChange}
-              className={SELECT_BASE}
-            >
-              <option value="" disabled>
-                {t({ en: "Select Industry", nl: "Kies een branche" })}
-              </option>
-              {INDUSTRIES.map((ind) => (
-                <option key={ind.value} value={ind.value}>
-                  {t(ind.label)}
-                </option>
-              ))}
-            </select>
-            <ChevronDown
-              className="pointer-events-none absolute top-1/2 right-3 -translate-y-1/2 text-muted"
-              size={18}
-            />
-          </div>
-        </div>
-
-        <div className="space-y-1.5">
           <label htmlFor={fieldId("serviceArea")} className={LABEL_CLASS}>
             {t({
               en: "Service Area / Location",
