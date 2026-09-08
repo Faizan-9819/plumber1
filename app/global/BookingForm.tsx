@@ -594,7 +594,7 @@ export default function BookingForm({ isOpen, onClose }: BookingFormProps) {
 
               {/* Body — make content area scrollable when content is long */}
               <div
-                className="relative px-6 lg:px-8 py-6 flex flex-col flex-1 min-h-0 max-h-[calc(100vh-64px)] overflow-y-auto lg:max-h-none lg:overflow-y-visible touch-pan-y"
+                className="booking-body-scroll relative px-6 lg:px-8 py-6 flex flex-col flex-1 min-h-0 max-h-[calc(100vh-64px)] overflow-y-auto touch-pan-y"
                 data-lenis-prevent
               >
                 <AnimatePresence mode="wait" custom={direction}>
@@ -703,6 +703,25 @@ export default function BookingForm({ isOpen, onClose }: BookingFormProps) {
               background: var(--accent-2);
             }
             .services-scroll {
+              scrollbar-width: thin;
+              scrollbar-color: var(--accent) var(--soft);
+            }
+            .booking-body-scroll::-webkit-scrollbar {
+              width: 8px;
+            }
+            .booking-body-scroll::-webkit-scrollbar-track {
+              background: var(--soft);
+              border-radius: 999px;
+            }
+            .booking-body-scroll::-webkit-scrollbar-thumb {
+              background: var(--accent);
+              border: 2px solid var(--soft);
+              border-radius: 999px;
+            }
+            .booking-body-scroll::-webkit-scrollbar-thumb:hover {
+              background: var(--accent-2);
+            }
+            .booking-body-scroll {
               scrollbar-width: thin;
               scrollbar-color: var(--accent) var(--soft);
             }
