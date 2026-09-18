@@ -87,11 +87,7 @@ function ServiceCard({ service }: { service: (typeof SERVICES)[number] }) {
 
   return (
     <div
-      className={`h-full rounded-3xl p-4.5 transition-[transform,box-shadow] duration-300 ease-out transform-gpu will-change-transform hover:-translate-y-1.5 ${
-        service.featured
-          ? "bg-grad text-white shadow-[0_30px_56px_-30px_rgba(60,60,140,0.7)]"
-          : "border border-line bg-card"
-      }`}
+      className="group h-full rounded-3xl border border-line bg-card p-4.5 transition-[transform,box-shadow,background-color,color] duration-300 ease-out transform-gpu will-change-transform hover:-translate-y-1.5 hover:border-transparent hover:text-white hover:[background-image:var(--grad)] hover:shadow-[0_30px_56px_-30px_rgba(60,60,140,0.7)]"
     >
       <div
         style={coverStyle(service.imageId, 520, 360)}
@@ -101,21 +97,15 @@ function ServiceCard({ service }: { service: (typeof SERVICES)[number] }) {
         <h3 className="text-[19px] font-extrabold tracking-[-0.01em]">
           {t(service.title)}
         </h3>
-        <span
-          className={`flex-none text-[17px] ${service.featured ? "text-white" : "text-accent"}`}
-        >
+        <span className="flex-none text-[17px] text-accent transition-colors duration-300 group-hover:text-white">
           ↗
         </span>
       </div>
-      <p
-        className={`mt-2.5 text-[14.5px] leading-[1.55] ${
-          service.featured ? "text-white/90" : "text-muted"
-        }`}
-      >
+      <p className="mt-2.5 text-[14.5px] leading-[1.55] text-muted transition-colors duration-300 group-hover:text-white/90">
         {t(service.desc)}
       </p>
       {service.featured && (
-        <span className="mt-3.5 inline-block rounded-full border border-white/40 bg-white/18 px-2.5 py-[5px] text-xs font-bold tracking-[0.06em] text-white uppercase">
+        <span className="mt-3.5 inline-block rounded-full border border-accent/30 bg-accent/10 px-2.5 py-[5px] text-xs font-bold tracking-[0.06em] text-accent uppercase transition-colors duration-300 group-hover:border-white/40 group-hover:bg-white/18 group-hover:text-white">
           {t({ en: "Most requested", nl: "Meest gevraagd" })}
         </span>
       )}

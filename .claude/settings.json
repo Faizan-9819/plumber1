@@ -47,7 +47,11 @@
       "Bash(node test-spacing.mjs)",
       "Bash(node test-spacing2.mjs)",
       "Bash(node test-spacing3.mjs)",
-      "Bash(node test-spacing-shot.mjs)"
+      "Bash(node test-spacing-shot.mjs)",
+      "Bash(curl -s -o /dev/null -w \"dev server status: %{http_code}\\\\n\" http://localhost:3000/)",
+      "Bash(node test-hover.mjs)",
+      "Bash(node test-hover-bg.mjs)",
+      "Bash(node test-first-card.mjs)"
     ],
     "additionalDirectories": [
       "C:\\Users\\USER\\OneDrive\\Documents\\GitHub\\plumber1\\app"
