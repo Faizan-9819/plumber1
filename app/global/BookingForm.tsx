@@ -1,5 +1,6 @@
 "use client";
 import { useLanguage } from "../i18n/LanguageProvider";
+import type { Locale } from "../i18n/config";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   useCallback,
@@ -99,51 +100,54 @@ function formatPrice(priceMinor?: number | null, currency?: string | null) {
   }
 }
 
-function formatDateLong(key: string) {
-  return dateFromKey(key).toLocaleDateString(undefined, {
+function formatDateLong(key: string, locale: Locale) {
+  return dateFromKey(key).toLocaleDateString(locale === "nl" ? "nl-NL" : "en-US", {
     weekday: "long",
     month: "long",
     day: "numeric",
   });
 }
 
-function formatDateShort(key: string) {
-  return dateFromKey(key).toLocaleDateString(undefined, {
+function formatDateShort(key: string, locale: Locale) {
+  return dateFromKey(key).toLocaleDateString(locale === "nl" ? "nl-NL" : "en-US", {
     month: "short",
     day: "numeric",
   });
 }
 
-function formatSingleTime(iso: string, local?: string) {
+function formatSingleTime(iso: string, local: string | undefined, locale: Locale) {
   if (local) {
     const t = local.split("T")[1] ?? "";
     const hhmm = t.slice(0, 5);
-    if (hhmm) return formatHHMM(hhmm);
+    if (hhmm) return formatHHMM(hhmm, locale);
   }
   try {
-    return new Date(iso).toLocaleTimeString(undefined, {
+    return new Date(iso).toLocaleTimeString(locale === "nl" ? "nl-NL" : "en-US", {
       hour: "numeric",
       minute: "2-digit",
+      hour12: locale !== "nl",
     });
   } catch {
     return iso;
   }
 }
 
-function formatTimeFromStartsAt(slot: Slot) {
-  const start = formatSingleTime(slot.startsAt, slot.startsAtLocal);
-  const end = formatSingleTime(slot.endsAt, slot.endsAtLocal);
+function formatTimeFromStartsAt(slot: Slot, locale: Locale) {
+  const start = formatSingleTime(slot.startsAt, slot.startsAtLocal, locale);
+  const end = formatSingleTime(slot.endsAt, slot.endsAtLocal, locale);
   return `${start} - ${end}`;
 }
 
-function formatHHMM(hhmm: string) {
+function formatHHMM(hhmm: string, locale: Locale) {
   const [hStr, mStr] = hhmm.split(":");
-  let h = Number(hStr);
+  const h = Number(hStr);
   const m = mStr ?? "00";
+  if (locale === "nl") {
+    return `${String(h).padStart(2, "0")}:${m}`;
+  }
   const ampm = h >= 12 ? "PM" : "AM";
-  h = h % 12;
-  if (h === 0) h = 12;
-  return `${h}:${m} ${ampm}`;
+  const h12 = h % 12 || 12;
+  return `${h12}:${m} ${ampm}`;
 }
 
 function isSlotAvailable(slot: Slot): boolean {
@@ -1013,7 +1017,7 @@ function SlotStep({
               {t({ en: "Available times", nl: "Beschikbare tijden" })}{" "}
               {selectedDate && (
                 <span className="text-ink normal-case tracking-normal font-medium">
-                  · {formatDateShort(selectedDate)}
+                  · {formatDateShort(selectedDate, locale)}
                 </span>
               )}
             </p>
@@ -1069,7 +1073,7 @@ function SlotStep({
                           : "border-line bg-soft text-ink hover:border-accent/50 hover:bg-accent/5")
                       }
                     >
-                      {formatTimeFromStartsAt(slot)}
+                      {formatTimeFromStartsAt(slot, locale)}
                     </button>
                   );
                 })}
@@ -1325,7 +1329,7 @@ function DetailsStep({
   submitting: boolean;
   error: string | null;
 }) {
-  const { t } = useLanguage();
+  const { t, locale } = useLanguage();
   const [fieldErrors, setFieldErrors] = useState({ phone: "", email: "" });
 
   const validate = (name: string, value: string) => {
@@ -1363,10 +1367,10 @@ function DetailsStep({
         const key =
           (slot.startsAtLocal && slot.startsAtLocal.split("T")[0]) ||
           slot.startsAt.split("T")[0];
-        return formatDateShort(key);
+        return formatDateShort(key, locale);
       })()
     : "";
-  const timeLabel = slot ? formatTimeFromStartsAt(slot) : "";
+  const timeLabel = slot ? formatTimeFromStartsAt(slot, locale) : "";
 
   return (
     <form
@@ -1519,16 +1523,16 @@ function SuccessStep({
   name: string;
   onClose: () => void;
 }) {
-  const { t } = useLanguage();
+  const { t, locale } = useLanguage();
   const dateLabel = slot
     ? (() => {
         const key =
           (slot.startsAtLocal && slot.startsAtLocal.split("T")[0]) ||
           slot.startsAt.split("T")[0];
-        return formatDateLong(key);
+        return formatDateLong(key, locale);
       })()
     : "";
-  const timeLabel = slot ? formatTimeFromStartsAt(slot) : "";
+  const timeLabel = slot ? formatTimeFromStartsAt(slot, locale) : "";
 
   return (
     <div className="flex flex-col items-center justify-center text-center gap-4 py-2 flex-1">
@@ -1654,12 +1658,13 @@ function SummaryRow({ label, value }: { label: string; value: string }) {
 }
 
 function Spinner({ small = false }: { small?: boolean }) {
+  const { t } = useLanguage();
   const size = small ? 16 : 28;
   return (
     <span
       className="inline-block animate-spin rounded-full border-[2.5px] border-line border-t-accent"
       style={{ width: size, height: size }}
-      aria-label="Loading"
+      aria-label={t({ en: "Loading", nl: "Laden" })}
     />
   );
 }

@@ -4,6 +4,7 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useRef,
   useState,
   type ReactNode,
 } from "react";
@@ -33,13 +34,20 @@ export function LanguageProvider({
 }) {
   const pathname = usePathname();
   const [locale, setLocaleState] = useState<Locale>(initialLocale);
+  const isFirstRender = useRef(true);
 
   useEffect(() => {
+    // Skip on mount — `locale` is already seeded from `initialLocale`.
+    // Only resync from the URL on actual navigations, so this doesn't
+    // race with (and silently revert) a manual toggle right after load.
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
     const next: Locale =
       pathname === "/nl" || pathname.startsWith("/nl/") ? "nl" : "en";
-    const timeout = window.setTimeout(() => setLocaleState(next), 0);
+    setLocaleState(next);
     if (typeof document !== "undefined") document.documentElement.lang = next;
-    return () => window.clearTimeout(timeout);
   }, [pathname]);
 
   const setLocale = useCallback((next: Locale) => {

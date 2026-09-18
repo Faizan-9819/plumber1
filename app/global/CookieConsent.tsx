@@ -113,17 +113,19 @@ function Toggle({
   onChange,
   disabled,
   id,
+  ariaLabel,
 }: {
   checked: boolean;
   onChange?: (v: boolean) => void;
   disabled?: boolean;
   id: string;
+  ariaLabel: string;
 }) {
   return (
     <button
       role="switch"
       aria-checked={checked}
-      aria-label={id}
+      aria-label={ariaLabel}
       id={id}
       disabled={disabled}
       onClick={() => onChange?.(!checked)}
@@ -147,7 +149,7 @@ function CategoryRow({
   onChange,
   disabled,
   id,
-  alwaysOnLabel = "Always on",
+  alwaysOnLabel,
 }: {
   label: string;
   checked: boolean;
@@ -178,6 +180,7 @@ function CategoryRow({
         checked={checked}
         onChange={onChange}
         disabled={disabled}
+        ariaLabel={label}
       />
     </div>
   );
@@ -373,7 +376,7 @@ export default function CookieConsent() {
             transition={{ type: "spring", duration: 0.5, bounce: 0.22 }}
             role="dialog"
             aria-live="polite"
-            aria-label="Cookie consent"
+            aria-label={t({ en: "Cookie consent", nl: "Cookietoestemming" })}
             // Desktop: bottom-right card. Mobile: above the 52px sticky bar.
             className="fixed z-[1500] left-4 right-4 bottom-[calc(52px+12px)] sm:bottom-6 sm:left-auto sm:right-6 sm:w-[420px]"
           >
@@ -448,7 +451,7 @@ export default function CookieConsent() {
         href="https://wa.me/31201234567"
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Chat on WhatsApp"
+        aria-label={t({ en: "Chat on WhatsApp", nl: "Chat via WhatsApp" })}
         className="bg-grad-cta fixed z-[1400] right-4 bottom-4 sm:right-6 sm:bottom-6 group w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-transform hover:scale-110 active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
       >
         <svg

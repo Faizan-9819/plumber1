@@ -1,19 +1,21 @@
 "use client";
 
 import { openCookiePreferences } from "@/app/global/CookieConsent";
+import { useLanguage } from "@/app/i18n/LanguageProvider";
+import type { Translation } from "@/app/i18n/config";
 
-const COMPANY_LINKS = [
-  { label: "About us", href: "#about" },
-  { label: "Reviews", href: "#reviews" },
-  { label: "FAQ", href: "#faq" },
-  { label: "Contact", href: "#enquiry" },
+const COMPANY_LINKS: { label: Translation; href: string }[] = [
+  { label: { en: "About us", nl: "Over ons" }, href: "#about" },
+  { label: { en: "Reviews", nl: "Recensies" }, href: "#reviews" },
+  { label: { en: "FAQ", nl: "Vragen" }, href: "#faq" },
+  { label: { en: "Contact", nl: "Contact" }, href: "#enquiry" },
 ];
 
-const SERVICE_LINKS = [
-  { label: "Emergency plumbing", href: "#services" },
-  { label: "Leak repair", href: "#services" },
-  { label: "Drain unblocking", href: "#services" },
-  { label: "Boiler & heating", href: "#services" },
+const SERVICE_LINKS: { label: Translation; href: string }[] = [
+  { label: { en: "Emergency plumbing", nl: "Spoedloodgieter" }, href: "#services" },
+  { label: { en: "Leak repair", nl: "Lekreparatie" }, href: "#services" },
+  { label: { en: "Drain unblocking", nl: "Afvoer ontstoppen" }, href: "#services" },
+  { label: { en: "Boiler & heating", nl: "Cv-ketel & verwarming" }, href: "#services" },
 ];
 
 const AREA_LINKS = [
@@ -24,6 +26,8 @@ const AREA_LINKS = [
 ];
 
 export default function Footer() {
+  const { t } = useLanguage();
+
   return (
     <footer className="mt-5 rounded-t-[36px] bg-ink text-[#d9dae0]">
       <div className="fix pt-[clamp(48px,6vw,76px)] pb-[30px]">
@@ -34,8 +38,10 @@ export default function Footer() {
               <span className="text-grad font-extrabold italic">Flow</span>
             </div>
             <p className="mb-4.5 text-[14.5px] leading-[1.6] text-[#9fa1ab]">
-              Certified plumbing &amp; heating for Amsterdam homes and
-              businesses. Fast, clean, guaranteed — 24/7.
+              {t({
+                en: "Certified plumbing & heating for Amsterdam homes and businesses. Fast, clean, guaranteed — 24/7.",
+                nl: "Gecertificeerd loodgieters- & verwarmingsbedrijf voor woningen en bedrijven in Amsterdam. Snel, schoon, gegarandeerd — 24/7.",
+              })}
             </p>
             <div className="flex gap-2.5">
               <a
@@ -79,29 +85,35 @@ export default function Footer() {
 
           <div className="grid gap-9 grid-cols-[repeat(auto-fit,minmax(min(100%,180px),1fr))]">
             <div>
-              <div className="mb-4 text-sm font-bold text-white">Company</div>
+              <div className="mb-4 text-sm font-bold text-white">
+                {t({ en: "Company", nl: "Bedrijf" })}
+              </div>
               <div className="flex flex-col gap-2.5 text-[14.5px] text-[#9fa1ab]">
                 {COMPANY_LINKS.map((link) => (
-                  <a key={link.label} href={link.href}>
-                    {link.label}
+                  <a key={link.label.en} href={link.href}>
+                    {t(link.label)}
                   </a>
                 ))}
               </div>
             </div>
 
             <div>
-              <div className="mb-4 text-sm font-bold text-white">Services</div>
+              <div className="mb-4 text-sm font-bold text-white">
+                {t({ en: "Services", nl: "Diensten" })}
+              </div>
               <div className="flex flex-col gap-2.5 text-[14.5px] text-[#9fa1ab]">
                 {SERVICE_LINKS.map((link) => (
-                  <a key={link.label} href={link.href}>
-                    {link.label}
+                  <a key={link.label.en} href={link.href}>
+                    {t(link.label)}
                   </a>
                 ))}
               </div>
             </div>
 
             <div>
-              <div className="mb-4 text-sm font-bold text-white">Areas</div>
+              <div className="mb-4 text-sm font-bold text-white">
+                {t({ en: "Areas", nl: "Regio's" })}
+              </div>
               <div className="flex flex-col gap-2.5 text-[14.5px] text-[#9fa1ab]">
                 {AREA_LINKS.map((link) => (
                   <a key={link.label} href={link.href}>
@@ -112,7 +124,9 @@ export default function Footer() {
             </div>
 
             <div>
-              <div className="mb-4 text-sm font-bold text-white">Contact</div>
+              <div className="mb-4 text-sm font-bold text-white">
+                {t({ en: "Contact", nl: "Contact" })}
+              </div>
               <div className="flex flex-col gap-2.5 text-[14.5px] text-[#9fa1ab]">
                 <a href="tel:+31201234567">020 123 4567</a>
                 <span>hello@aquaflow.nl</span>
@@ -128,19 +142,21 @@ export default function Footer() {
 
         <div className="flex flex-wrap items-center justify-between gap-3 pt-6 text-[13px] text-[#80828c]">
           <span>
-            © 2026 AquaFlow Plumbing &amp; Heating · KVK 87654321 · BTW
-            NL004567891B01
+            {t({
+              en: "© 2026 AquaFlow Plumbing & Heating · KVK 87654321 · BTW NL004567891B01",
+              nl: "© 2026 AquaFlow Loodgieters- & verwarmingsbedrijf · KVK 87654321 · BTW NL004567891B01",
+            })}
           </span>
           <div className="flex gap-5">
-            <a href="#">Privacy</a>
-            <a href="#">Terms</a>
-            <a href="#">Licenses</a>
+            <a href="#">{t({ en: "Privacy", nl: "Privacybeleid" })}</a>
+            <a href="#">{t({ en: "Terms", nl: "Voorwaarden" })}</a>
+            <a href="#">{t({ en: "Licenses", nl: "Licenties" })}</a>
             <button
               type="button"
               onClick={openCookiePreferences}
               className="cursor-pointer"
             >
-              Manage Cookies
+              {t({ en: "Manage Cookies", nl: "Cookies beheren" })}
             </button>
           </div>
         </div>

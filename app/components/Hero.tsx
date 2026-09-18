@@ -2,9 +2,11 @@
 
 import { coverStyle } from "@/app/lib/images";
 import { useFormModals } from "@/app/global/FormModalProvider";
+import { useLanguage } from "@/app/i18n/LanguageProvider";
 
 export default function Hero() {
   const formModals = useFormModals();
+  const { t } = useLanguage();
 
   return (
     <section id="home" className="relative section-py overflow-clip">
@@ -34,21 +36,29 @@ export default function Hero() {
               <span className="bg-grad inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11.5px] font-bold tracking-[0.08em] text-white uppercase">
                 24/7
               </span>
-              Emergency plumbing across Amsterdam
+              {t({
+                en: "Emergency plumbing across Amsterdam",
+                nl: "Spoedloodgieter in heel Amsterdam",
+              })}
             </div>
 
             <h1 className="mb-[22px] text-[clamp(40px,6vw,72px)] leading-[1.03] font-extrabold tracking-[-0.032em]">
-              Fast, reliable plumbing —<br />
+              {t({
+                en: "Fast, reliable plumbing —",
+                nl: "Snel, betrouwbaar loodgieterswerk —",
+              })}
+              <br />
               <span className="text-grad font-extrabold italic">
-                done right
+                {t({ en: "done right", nl: "in één keer goed" })}
               </span>
-              , first time.
+              {t({ en: ", first time.", nl: " gedaan." })}
             </h1>
 
             <p className="mb-[30px] max-w-[540px] text-[clamp(17px,1.5vw,19px)] leading-[1.62] text-muted">
-              Certified local plumbers for repairs, installations and
-              emergencies. Same-day appointments across Amsterdam and the
-              surrounding region — with clear, fixed pricing before we start.
+              {t({
+                en: "Certified local plumbers for repairs, installations and emergencies. Same-day appointments across Amsterdam and the surrounding region — with clear, fixed pricing before we start.",
+                nl: "Gecertificeerde lokale loodgieters voor reparaties, installaties en noodgevallen. Dezelfde dag nog een afspraak in Amsterdam en omgeving — met duidelijke, vaste prijzen vooraf.",
+              })}
             </p>
 
             <div className="mb-[30px] flex flex-wrap gap-3.5">
@@ -56,28 +66,35 @@ export default function Hero() {
                 href="#booking"
                 className="bg-grad-cta inline-flex items-center gap-2.5 rounded-full px-7 py-4 text-[17px] font-bold text-white shadow-[0_16px_32px_-12px_rgba(71,107,222,0.55)]"
               >
-                Book Appointment <span className="text-[18px]">→</span>
+                {t({ en: "Book Appointment", nl: "Afspraak maken" })}{" "}
+                <span className="text-[18px]">→</span>
               </a>
               <a
                 href="tel:+31201234567"
                 onClick={() => formModals?.openEnquiry()}
                 className="inline-flex items-center gap-2.5 rounded-full border-[1.5px] border-line bg-card px-6.5 py-4 text-[17px] font-bold text-ink"
               >
-                <span className="text-accent">✆</span> Call the emergency line
+                <span className="text-accent">✆</span>{" "}
+                {t({
+                  en: "Call the emergency line",
+                  nl: "Bel de noodlijn",
+                })}
               </a>
             </div>
 
             <div className="flex flex-wrap gap-x-2.5 gap-y-2">
-              {["Certified & insured", "Same-day service", "Fixed pricing"].map(
-                (item) => (
-                  <span
-                    key={item}
-                    className="inline-flex items-center gap-[7px] rounded-full border border-line bg-card px-3.5 py-2 text-sm font-semibold text-[#46474d]"
-                  >
-                    <span className="text-accent-2">✓</span> {item}
-                  </span>
-                ),
-              )}
+              {[
+                { en: "Certified & insured", nl: "Gecertificeerd & verzekerd" },
+                { en: "Same-day service", nl: "Dezelfde dag service" },
+                { en: "Fixed pricing", nl: "Vaste prijzen" },
+              ].map((item) => (
+                <span
+                  key={item.en}
+                  className="inline-flex items-center gap-[7px] rounded-full border border-line bg-card px-3.5 py-2 text-sm font-semibold text-[#46474d]"
+                >
+                  <span className="text-accent-2">✓</span> {t(item)}
+                </span>
+              ))}
             </div>
           </div>
 
@@ -92,10 +109,10 @@ export default function Hero() {
               </span>
               <div>
                 <div className="text-[15px] leading-[1.1] font-extrabold">
-                  Available now
+                  {t({ en: "Available now", nl: "Nu beschikbaar" })}
                 </div>
                 <div className="text-[12.5px] text-muted">
-                  Emergency call-outs
+                  {t({ en: "Emergency call-outs", nl: "Spoeduitrukken" })}
                 </div>
               </div>
             </div>
@@ -106,10 +123,13 @@ export default function Hero() {
                 </span>
               </div>
               <div className="mt-[3px] text-[15px] font-extrabold">
-                4.9 · 250+ reviews
+                {t({ en: "4.9 · 250+ reviews", nl: "4,9 · 250+ beoordelingen" })}
               </div>
               <div className="text-xs text-muted">
-                Verified homeowners &amp; businesses
+                {t({
+                  en: "Verified homeowners & businesses",
+                  nl: "Geverifieerde huiseigenaren & bedrijven",
+                })}
               </div>
             </div>
           </div>

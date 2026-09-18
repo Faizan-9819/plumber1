@@ -2,8 +2,10 @@
 
 import { useState } from "react";
 import LeadEnquiryForm from "@/app/global/LeadEnquiryForm";
+import { useLanguage } from "@/app/i18n/LanguageProvider";
 
 export default function Contact() {
+  const { t } = useLanguage();
   const [sent, setSent] = useState(false);
 
   return (
@@ -12,38 +14,59 @@ export default function Contact() {
         <div className="grid items-start gap-[clamp(28px,4vw,40px)] grid-cols-[repeat(auto-fit,minmax(min(100%,330px),1fr))]">
           <div>
             <div className="mb-4 text-[13px] font-bold tracking-[0.16em] text-accent uppercase">
-              Get in touch
+              {t({ en: "Get in touch", nl: "Neem contact op" })}
             </div>
             <h2 className="mb-4.5 text-[clamp(28px,4.2vw,46px)] leading-[1.06] font-extrabold tracking-[-0.028em]">
-              Request a visit or quote
+              {t({
+                en: "Request a visit or quote",
+                nl: "Vraag een bezoek of offerte aan",
+              })}
             </h2>
             <p className="mb-6 text-[17px] leading-[1.62] text-muted">
-              Not ready to call? Send a few details and we&apos;ll come back to
-              you fast — usually within the hour during working times.
+              {t({
+                en: "Not ready to call? Send a few details and we'll come back to you fast — usually within the hour during working times.",
+                nl: "Nog niet zover om te bellen? Stuur een paar gegevens en we nemen snel contact met u op — meestal binnen het uur tijdens werkuren.",
+              })}
             </p>
             <div className="mb-4.5 flex min-h-[220px] items-end rounded-[22px] p-4 [background-image:repeating-linear-gradient(135deg,rgba(110,92,240,.06)_0_16px,rgba(34,195,201,.05)_16px_32px),var(--grad-soft)]">
               <span className="rounded-full bg-white/72 px-3 py-[7px] font-mono text-xs text-[#7d72b0]">
-                map · Keizersgracht 123, Amsterdam
+                {t({
+                  en: "map · Keizersgracht 123, Amsterdam",
+                  nl: "kaart · Keizersgracht 123, Amsterdam",
+                })}
               </span>
             </div>
             <div className="grid gap-3.5 grid-cols-[repeat(auto-fit,minmax(150px,1fr))]">
               <div className="rounded-2xl border border-line bg-card p-4">
-                <div className="mb-1 text-[12.5px] font-semibold text-muted">Call us</div>
+                <div className="mb-1 text-[12.5px] font-semibold text-muted">
+                  {t({ en: "Call us", nl: "Bel ons" })}
+                </div>
                 <a href="tel:+31201234567" className="text-base font-extrabold">
                   020 123 4567
                 </a>
               </div>
               <div className="rounded-2xl border border-line bg-card p-4">
-                <div className="mb-1 text-[12.5px] font-semibold text-muted">Email</div>
+                <div className="mb-1 text-[12.5px] font-semibold text-muted">
+                  {t({ en: "Email", nl: "E-mail" })}
+                </div>
                 <div className="text-base font-extrabold">hello@aquaflow.nl</div>
               </div>
               <div className="rounded-2xl border border-line bg-card p-4">
-                <div className="mb-1 text-[12.5px] font-semibold text-muted">Address</div>
+                <div className="mb-1 text-[12.5px] font-semibold text-muted">
+                  {t({ en: "Address", nl: "Adres" })}
+                </div>
                 <div className="text-[14.5px] font-bold">Keizersgracht 123, Amsterdam</div>
               </div>
               <div className="rounded-2xl border border-line bg-card p-4">
-                <div className="mb-1 text-[12.5px] font-semibold text-muted">Hours</div>
-                <div className="text-[14.5px] font-bold">Mon–Sun · 24/7 emergency</div>
+                <div className="mb-1 text-[12.5px] font-semibold text-muted">
+                  {t({ en: "Hours", nl: "Openingstijden" })}
+                </div>
+                <div className="text-[14.5px] font-bold">
+                  {t({
+                    en: "Mon–Sun · 24/7 emergency",
+                    nl: "Ma–Zo · 24/7 spoedservice",
+                  })}
+                </div>
               </div>
             </div>
           </div>
@@ -52,8 +75,10 @@ export default function Contact() {
             <LeadEnquiryForm idPrefix="contact" onSuccessComplete={() => setSent(true)} />
             {!sent && (
               <p className="mt-3.5 text-center text-[12.5px] text-muted">
-                No obligation · Fixed quote before any work · Reply within the
-                hour
+                {t({
+                  en: "No obligation · Fixed quote before any work · Reply within the hour",
+                  nl: "Vrijblijvend · Vaste offerte vooraf · Reactie binnen het uur",
+                })}
               </p>
             )}
           </div>

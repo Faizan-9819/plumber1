@@ -78,7 +78,10 @@ html.lenis body {
   padding-inline: 20px;
 }
 
-@media (min-width: 768px) {
+/* Below this width the auto-centered max-width no longer supplies its own
+   side margin, so keep the same 20px gutter until it does (content-width +
+   2 * 20px) instead of dropping straight to 0 at the 768px breakpoint. */
+@media (min-width: 1220px) {
   .fix {
     padding-inline: 0px;
   }
