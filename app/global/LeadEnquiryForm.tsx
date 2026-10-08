@@ -4,6 +4,7 @@ import { Check, ChevronDown, Loader2 } from "lucide-react";
 import { useEffect, useState, type ChangeEvent, type FormEvent } from "react";
 import { useLanguage } from "../i18n/LanguageProvider";
 import type { Translation } from "../i18n/config";
+import { apiUrl, isBackendEnabled } from "@/lib/api";
 
 type LeadEnquiryFormProps = {
   idPrefix?: string;
@@ -19,9 +20,20 @@ type BookableService = {
   isConsultation?: boolean;
 };
 
-const TENANT_SLUG = "plumber1";
-const SITE_SLUG = "plumber1";
-const API_BASE = `https://api.getgrowthrocket.com/api/v1/public`;
+/**
+ * Used when BACKEND_ENABLED is false in settings.ts. Captured once from the
+ * live API (tenant "plumber1", site "plumber1") so the dropdown still offers
+ * the real options with no network.
+ */
+const STATIC_SERVICES: BookableService[] = [
+  { id: 101, name: "Plumber1", isActive: true, isConsultation: false },
+  { id: 102, name: "Consultation", isActive: true, isConsultation: true },
+];
+
+/** The enquiry dropdown offers services, not the free consultation type. */
+function enquirable(list: BookableService[]): BookableService[] {
+  return list.filter((s) => s.isActive && !s.isConsultation);
+}
 
 const REGEX = {
   phone: /^\+?[0-9\s\-()]{7,20}$/,
@@ -60,14 +72,20 @@ export default function LeadEnquiryForm({
   const [error, setError] = useState<string | null>(null);
   const [formData, setFormData] = useState(INITIAL_FORM_DATA);
   const [fieldErrors, setFieldErrors] = useState(INITIAL_FIELD_ERRORS);
-  const [services, setServices] = useState<BookableService[]>([]);
+  // Backend off: the static list is all there is. Backend on: start empty and
+  // fill from the API below.
+  const [services, setServices] = useState<BookableService[]>(() =>
+    isBackendEnabled() ? [] : enquirable(STATIC_SERVICES),
+  );
 
   const fieldId = (name: string) => `${idPrefix}-${name}`;
 
   useEffect(() => {
+    if (!isBackendEnabled()) return;
+
     let cancelled = false;
 
-    fetch(`${API_BASE}/bookings/settings`, {
+    fetch(apiUrl("/bookings/settings"), {
       headers: { Accept: "application/json" },
     })
       .then(async (res) => {
@@ -76,10 +94,7 @@ export default function LeadEnquiryForm({
       })
       .then((data) => {
         if (cancelled) return;
-        const enquirable = (data.services ?? []).filter(
-          (s) => s.isActive && !s.isConsultation,
-        );
-        setServices(enquirable);
+        setServices(enquirable(data.services ?? []));
       })
       .catch(() => {
         // Non-critical — the form still works without the services list.
@@ -129,11 +144,18 @@ export default function LeadEnquiryForm({
 
     if (!isPhoneValid || !isEmailValid) return;
 
+    // Backend off: nothing is sent anywhere, just show the thank-you.
+    if (!isBackendEnabled()) {
+      setIsSuccess(true);
+      onSuccessComplete?.();
+      return;
+    }
+
     setIsSubmitting(true);
     setError(null);
 
     try {
-      const response = await fetch(`${API_BASE}/enquiries`, {
+      const response = await fetch(apiUrl("/enquiries"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

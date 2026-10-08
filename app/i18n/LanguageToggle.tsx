@@ -1,8 +1,6 @@
 "use client";
 import clsx from "clsx";
-import { usePathname, useRouter } from "next/navigation";
 import { useLanguage } from "./LanguageProvider";
-import { localizedHref } from "./locale-href";
 import type { Locale } from "./config";
 
 const BTN = (active: boolean) =>
@@ -14,14 +12,11 @@ const BTN = (active: boolean) =>
   );
 
 export default function LanguageToggle({ className }: { className?: string }) {
-  const { locale, t } = useLanguage();
-  const pathname = usePathname() || "/";
-  const router = useRouter();
+  const { locale, setLocale, t } = useLanguage();
   const isNl = locale === "nl";
 
   function go(target: Locale) {
-    if (target === locale) return;
-    router.push(localizedHref(pathname, target));
+    setLocale(target);
   }
 
   return (

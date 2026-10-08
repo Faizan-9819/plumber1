@@ -1,29 +1,51 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from "@/app/i18n/config";
+import { SUPPORTED_LOCALES } from "@/app/i18n/config";
+import {
+  defaultLanguage,
+  isLanguageEnabled,
+  pathForLanguage,
+  rootLanguage,
+} from "@/lib/i18n";
 
-// The default locale (en) is served unprefixed at "/", so requests without a
-// recognized locale prefix get rewritten internally to "/en/..." — the URL
-// bar keeps showing the unprefixed path while Next.js resolves app/[locale].
+// All language routing for app/[locale], driven by settings.ts:
+//  - "/en/..." and "/nl/..." are served as-is only when that is the
+//    language's own URL. A switched-off language, or one that lives on "/",
+//    redirects instead, so every page has exactly one address.
+//  - Unprefixed URLs are rewritten internally to whichever language owns "/"
+//    (the URL bar keeps the unprefixed path). If none does, they redirect to
+//    the main language's URL.
+// Redirects stay temporary (307) so flipping a setting is never undone by a
+// browser-cached permanent redirect.
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  const defaultPrefix = `/${DEFAULT_LOCALE}`;
 
-  // Canonicalize: an explicit "/en" URL redirects to its unprefixed form,
-  // so the default locale never renders at two different addresses.
-  if (pathname === defaultPrefix || pathname.startsWith(`${defaultPrefix}/`)) {
-    const url = request.nextUrl.clone();
-    url.pathname = pathname.slice(defaultPrefix.length) || "/";
-    return NextResponse.redirect(url);
-  }
-
-  const hasLocalePrefix = SUPPORTED_LOCALES.some(
+  const prefixed = SUPPORTED_LOCALES.find(
     (locale) => pathname === `/${locale}` || pathname.startsWith(`/${locale}/`),
   );
-  if (hasLocalePrefix) return;
+
+  if (prefixed) {
+    const ownUrl = `/${prefixed}`;
+    const target = isLanguageEnabled(prefixed)
+      ? pathForLanguage(prefixed)
+      : pathForLanguage(defaultLanguage());
+    if (target === ownUrl) return;
+
+    const rest = pathname.slice(ownUrl.length) || "/";
+    return redirectTo(request, target, rest);
+  }
+
+  const root = rootLanguage();
+  if (!root) return redirectTo(request, pathForLanguage(defaultLanguage()), pathname);
 
   const url = request.nextUrl.clone();
-  url.pathname = `${defaultPrefix}${pathname === "/" ? "" : pathname}`;
+  url.pathname = `/${root}${pathname === "/" ? "" : pathname}`;
   return NextResponse.rewrite(url);
+}
+
+function redirectTo(request: NextRequest, base: string, rest: string) {
+  const url = request.nextUrl.clone();
+  url.pathname = base === "/" ? rest : `${base}${rest === "/" ? "" : rest}`;
+  return NextResponse.redirect(url);
 }
 
 export const config = {

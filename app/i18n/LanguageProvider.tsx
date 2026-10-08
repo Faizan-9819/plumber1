@@ -3,13 +3,12 @@ import {
   createContext,
   useCallback,
   useContext,
-  useEffect,
-  useRef,
-  useState,
+  useMemo,
   type ReactNode,
 } from "react";
-import { usePathname } from "next/navigation";
-import { LOCALE_COOKIE, type Locale, type Translation } from "./config";
+import { useRouter } from "next/navigation";
+import { pathForLanguage } from "@/lib/i18n";
+import type { Locale, Translation } from "./config";
 
 type LanguageContextValue = {
   locale: Locale;
@@ -19,52 +18,37 @@ type LanguageContextValue = {
 
 const LanguageContext = createContext<LanguageContextValue | null>(null);
 
-function persistLocaleCookie(locale: Locale) {
-  if (typeof document === "undefined") return;
-  const oneYear = 60 * 60 * 24 * 365;
-  document.cookie = `${LOCALE_COOKIE}=${locale}; path=/; max-age=${oneYear}; SameSite=Lax`;
-}
-
+// `locale` is the app/[locale] route param — the language proxy.ts actually
+// resolved this request to. It's used instead of usePathname(): behind the
+// proxy's rewrite of "/" the client pathname can disagree with the server.
+// Switching language crosses root layouts, so it's a full page load that
+// re-renders this provider with the new param; no mirrored state needed.
 export function LanguageProvider({
-  initialLocale,
+  locale,
   children,
 }: {
-  initialLocale: Locale;
+  locale: Locale;
   children: ReactNode;
 }) {
-  const pathname = usePathname();
-  const [locale, setLocaleState] = useState<Locale>(initialLocale);
-  const isFirstRender = useRef(true);
+  const router = useRouter();
 
-  useEffect(() => {
-    // Skip on mount — `locale` is already seeded from `initialLocale`.
-    // Only resync from the URL on actual navigations, so this doesn't
-    // race with (and silently revert) a manual toggle right after load.
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      return;
-    }
-    const next: Locale =
-      pathname === "/nl" || pathname.startsWith("/nl/") ? "nl" : "en";
-    setLocaleState(next);
-    if (typeof document !== "undefined") document.documentElement.lang = next;
-  }, [pathname]);
-
-  const setLocale = useCallback((next: Locale) => {
-    setLocaleState(next);
-    persistLocaleCookie(next);
-    if (typeof document !== "undefined") {
-      document.documentElement.lang = next;
-    }
-  }, []);
+  const setLocale = useCallback(
+    (next: Locale) => {
+      if (next === locale) return;
+      router.push(pathForLanguage(next));
+    },
+    [locale, router],
+  );
 
   const t = useCallback(
     (entry: Translation) => entry[locale] ?? entry.en,
     [locale],
   );
 
+  const value = useMemo(() => ({ locale, setLocale, t }), [locale, setLocale, t]);
+
   return (
-    <LanguageContext.Provider value={{ locale, setLocale, t }}>
+    <LanguageContext.Provider value={value}>
       {children}
     </LanguageContext.Provider>
   );

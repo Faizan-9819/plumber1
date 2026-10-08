@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useLenisControl } from "../components/LenisProvider";
 import { useLanguage } from "../i18n/LanguageProvider";
 
@@ -307,6 +307,20 @@ export default function CookieConsent() {
   const [bannerOpen, setBannerOpen] = useState(false);
   const [panelOpen, setPanelOpen] = useState(false);
   const [prefs, setPrefs] = useState<Prefs>(DEFAULT_PREFS);
+  const [bannerHeight, setBannerHeight] = useState(0);
+
+  // Tracks the banner's height so the WhatsApp button can sit just above it
+  // instead of being covered. Stable identity, or React would re-run it (and
+  // its cleanup) on every render.
+  const measureBanner = useCallback((el: HTMLDivElement | null) => {
+    if (!el) return;
+    const ro = new ResizeObserver(() => setBannerHeight(el.offsetHeight));
+    ro.observe(el);
+    return () => {
+      ro.disconnect();
+      setBannerHeight(0);
+    };
+  }, []);
 
   useEffect(() => {
     const timeout = window.setTimeout(() => {
@@ -377,56 +391,76 @@ export default function CookieConsent() {
             role="dialog"
             aria-live="polite"
             aria-label={t({ en: "Cookie consent", nl: "Cookietoestemming" })}
-            // Desktop: bottom-right card. Mobile: above the 52px sticky bar.
-            className="fixed z-[1500] left-4 right-4 bottom-[calc(52px+12px)] sm:bottom-6 sm:left-auto sm:right-6 sm:w-[420px]"
+            ref={measureBanner}
+            // Full-width bar flush with the bottom edge. Text and buttons sit in
+            // one row on desktop and stack on smaller screens.
+            className="fixed z-[1500] inset-x-0 bottom-0"
           >
-            <div className="rounded-2xl border border-line bg-card p-5 shadow-2xl">
-              <p className="text-[15px] font-bold text-ink">
-                {t({ en: "We use cookies", nl: "Wij gebruiken cookies" })}
-              </p>
-              <p className="mt-1.5 text-[13px] leading-[1.6] text-muted">
-                {t({
-                  en: "We use cookies to make this website work properly and to understand how it's used. You can accept all, reject non-essential, or choose which ones to allow.",
-                  nl: "We gebruiken cookies om deze website goed te laten werken en om te begrijpen hoe deze wordt gebruikt. Je kunt alle cookies accepteren, niet-essentiële cookies weigeren of zelf kiezen welke cookies je toestaat.",
-                })}{" "}
-                <Link
-                  href={t({ en: "/cookie-policy", nl: "/nl/cookie-policy" })}
-                  className="underline text-accent hover:text-accent-2 font-medium"
+            <div className="flex flex-col gap-3 border-t border-line bg-card px-4 py-3.5 shadow-[0_-12px_32px_-18px_rgba(20,22,30,0.28)] sm:px-6 lg:flex-row lg:items-center lg:gap-6 lg:py-3">
+              <div className="flex min-w-0 flex-1 items-start gap-3 lg:items-center">
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent/10 text-accent">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="h-4 w-4"
+                    aria-hidden
+                  >
+                    <path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5" />
+                    <path d="M8.5 8.5v.01M16 15.5v.01M12 12v.01M11 17v.01M7 14v.01" />
+                  </svg>
+                </span>
+                <p className="text-[13px] leading-[1.55] text-muted">
+                  <span className="font-bold text-ink">
+                    {t({ en: "We use cookies", nl: "Wij gebruiken cookies" })}
+                  </span>
+                  {" — "}
+                  {t({
+                    en: "We use cookies to make this website work properly and to understand how it's used. You can accept all, reject non-essential, or choose which ones to allow.",
+                    nl: "We gebruiken cookies om deze website goed te laten werken en om te begrijpen hoe deze wordt gebruikt. Je kunt alle cookies accepteren, niet-essentiële cookies weigeren of zelf kiezen welke cookies je toestaat.",
+                  })}{" "}
+                  <Link
+                    href={t({ en: "/cookie-policy", nl: "/nl/cookie-policy" })}
+                    className="underline text-accent hover:text-accent-2 font-medium"
+                  >
+                    {t({ en: "Cookie Policy", nl: "Cookiebeleid" })}
+                  </Link>
+                  {" · "}
+                  <Link
+                    href={t({ en: "/privacy-policy", nl: "/nl/privacy-policy" })}
+                    className="underline text-accent hover:text-accent-2 font-medium"
+                  >
+                    {t({ en: "Privacy Policy", nl: "Privacybeleid" })}
+                  </Link>
+                </p>
+              </div>
+              {/* Mobile: "Accept all" spans the top row, the other two share
+                  the row below. sm+: all three in one right-aligned row. */}
+              <div className="grid grid-cols-2 gap-2 sm:flex sm:shrink-0 sm:justify-end">
+                <button
+                  onClick={rejectAll}
+                  className="order-2 rounded-full border border-line bg-card px-4 py-2 text-[13px] leading-tight font-semibold text-ink transition-colors hover:border-accent hover:bg-soft cursor-pointer sm:order-0 sm:whitespace-nowrap"
                 >
-                  {t({ en: "Cookie Policy", nl: "Cookiebeleid" })}
-                </Link>
-                {" · "}
-                <Link
-                  href={t({ en: "/privacy-policy", nl: "/nl/privacy-policy" })}
-                  className="underline text-accent hover:text-accent-2 font-medium"
+                  {t({
+                    en: "Reject non-essential",
+                    nl: "Niet-essentiële cookies weigeren",
+                  })}
+                </button>
+                <button
+                  onClick={openPanel}
+                  className="order-3 rounded-full border border-line bg-card px-4 py-2 text-[13px] leading-tight font-semibold text-ink transition-colors hover:border-accent hover:bg-soft cursor-pointer sm:order-0 sm:whitespace-nowrap"
                 >
-                  {t({ en: "Privacy Policy", nl: "Privacybeleid" })}
-                </Link>
-              </p>
-              <div className="mt-4 flex flex-col gap-2">
+                  {t({ en: "Manage preferences", nl: "Voorkeuren beheren" })}
+                </button>
                 <button
                   onClick={acceptAll}
-                  className="btn-primary w-full text-[14px]"
+                  className="bg-grad-cta order-1 col-span-2 rounded-full px-5 py-2 text-[13px] leading-tight font-bold text-white cursor-pointer sm:order-0 sm:whitespace-nowrap"
                 >
                   {t({ en: "Accept all", nl: "Alles accepteren" })}
                 </button>
-                <div className="flex gap-2">
-                  <button
-                    onClick={rejectAll}
-                    className="btn-secondary flex-1 text-[13px]"
-                  >
-                    {t({
-                      en: "Reject non-essential",
-                      nl: "Niet-essentiële cookies weigeren",
-                    })}
-                  </button>
-                  <button
-                    onClick={openPanel}
-                    className="flex-1 inline-flex items-center justify-center text-[13px] font-medium text-accent hover:text-accent-2 transition-colors cursor-pointer"
-                  >
-                    {t({ en: "Manage preferences", nl: "Voorkeuren beheren" })}
-                  </button>
-                </div>
               </div>
             </div>
           </motion.div>
@@ -452,6 +486,13 @@ export default function CookieConsent() {
         target="_blank"
         rel="noopener noreferrer"
         aria-label={t({ en: "Chat on WhatsApp", nl: "Chat via WhatsApp" })}
+        // Lifted by the cookie banner's height while it's showing, keeping its
+        // usual bottom gap above the banner.
+        style={
+          bannerOpen && bannerHeight
+            ? { translate: `0 -${bannerHeight}px` }
+            : undefined
+        }
         className="bg-grad-cta fixed z-[1400] right-4 bottom-4 sm:right-6 sm:bottom-6 group w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-transform hover:scale-110 active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
       >
         <svg

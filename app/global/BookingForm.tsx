@@ -12,6 +12,7 @@ import {
 } from "react";
 import type { ReactNode } from "react";
 import { useLenisControl } from "../components/LenisProvider";
+import { apiUrl, isBackendEnabled } from "@/lib/api";
 
 interface BookingFormProps {
   isOpen: boolean;
@@ -63,10 +64,87 @@ type SlotsResponse = {
 
 type Step = "service" | "slot" | "details" | "success";
 
-const API_ORIGIN = "https://api.getgrowthrocket.com";
-const TENANT_SLUG = "plumber1";
-const SITE_SLUG = "plumber1";
-const API_BASE = `${API_ORIGIN}/api/v1/public`;
+/**
+ * Used when BACKEND_ENABLED is false in settings.ts. Captured once from the
+ * live API (tenant "plumber1", site "plumber1") so the flow still runs end to
+ * end with no network.
+ */
+const STATIC_SETTINGS: Settings = {
+  timezone: "Europe/Amsterdam",
+  slotIntervalMinutes: 30,
+  minNoticeMinutes: 60,
+  maxAdvanceDays: 30,
+  bufferBeforeMinutes: 0,
+  bufferAfterMinutes: 0,
+  isActive: true,
+};
+
+const STATIC_SERVICES: Service[] = [
+  {
+    id: 101,
+    name: "Plumber1",
+    slug: "plumber1",
+    description: "Plumber1",
+    durationMinutes: 30,
+    priceMinor: null,
+    currencyCode: null,
+    isActive: true,
+    isBookable: true,
+    isConsultation: false,
+  },
+  {
+    id: 102,
+    name: "Consultation",
+    slug: "consultation",
+    description: "Book a free consultation with our team.",
+    durationMinutes: 15,
+    priceMinor: 0,
+    currencyCode: null,
+    isActive: true,
+    isBookable: true,
+    isConsultation: true,
+  },
+];
+
+/**
+ * Stands in for the backend's real-time availability: a fixed 09:00–17:00
+ * grid (in the visitor's local time) honouring the interval and
+ * minimum-notice values above.
+ */
+function generateSlotsByDate(
+  dateRange: string[],
+  intervalMinutes: number,
+  minNoticeMinutes: number,
+): Record<string, Slot[]> {
+  const pad = (n: number) => String(n).padStart(2, "0");
+  const localStamp = (d: Date) =>
+    `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}:00`;
+  const noticeThreshold = new Date(Date.now() + minNoticeMinutes * 60000);
+
+  const map: Record<string, Slot[]> = {};
+  for (const dateKey of dateRange) {
+    const [y, m, d] = dateKey.split("-").map(Number);
+    const dayEnd = new Date(y, (m ?? 1) - 1, d ?? 1, 17, 0, 0);
+    const daySlots: Slot[] = [];
+    for (
+      let start = new Date(y, (m ?? 1) - 1, d ?? 1, 9, 0, 0);
+      start < dayEnd;
+      start = new Date(start.getTime() + intervalMinutes * 60000)
+    ) {
+      if (start < noticeThreshold) continue;
+      const end = new Date(start.getTime() + intervalMinutes * 60000);
+      daySlots.push({
+        startsAt: start.toISOString(),
+        endsAt: end.toISOString(),
+        startsAtLocal: localStamp(start),
+        endsAtLocal: localStamp(end),
+        isAvailable: true,
+      });
+    }
+    if (daySlots.length > 0) map[dateKey] = daySlots;
+  }
+  return map;
+}
 
 function toLocalDateKey(d: Date): string {
   const y = d.getFullYear();
@@ -244,11 +322,21 @@ export default function BookingForm({ isOpen, onClose }: BookingFormProps) {
     if (fetchedSettingsRef.current) return;
     fetchedSettingsRef.current = true;
 
+    // Backend off: serve the frozen settings/services, no request at all.
+    if (!isBackendEnabled()) {
+      const active = STATIC_SERVICES.filter((s) => s.isActive && s.isBookable);
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- synchronous stand-in for the fetch below
+      setSettings(STATIC_SETTINGS);
+      setServices(active);
+      if (active.length > 0) setServiceId(active[0].id);
+      return;
+    }
+
     let cancelled = false;
     setLoadingSettings(true);
     setSettingsError(null);
 
-    fetch(`${API_BASE}/bookings/settings`, {
+    fetch(apiUrl("/bookings/settings"), {
       headers: { Accept: "application/json" },
     })
       .then(async (res) => {
@@ -358,14 +446,33 @@ export default function BookingForm({ isOpen, onClose }: BookingFormProps) {
     if (step !== "slot") return;
     if (!serviceId || dateRange.length === 0) return;
 
+    // Backend off: build the availability grid locally instead of asking
+    // the API which times are free.
+    if (!isBackendEnabled()) {
+      const map = generateSlotsByDate(
+        dateRange,
+        settings?.slotIntervalMinutes ?? STATIC_SETTINGS.slotIntervalMinutes,
+        settings?.minNoticeMinutes ?? STATIC_SETTINGS.minNoticeMinutes,
+      );
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- synchronous stand-in for the fetch below
+      setSlotsByDate(map);
+      const firstAvailable = dateRange.find((d) =>
+        (map[d] ?? []).some(isSlotAvailable),
+      );
+      setSelectedDate(firstAvailable ?? null);
+      setSelectedSlot(null);
+      return;
+    }
+
     let cancelled = false;
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- loading indicator at start of fetch
     setLoadingSlots(true);
     setSlotsError(null);
 
     const from = dateRange[0];
     const to = dateRange[dateRange.length - 1];
-    const url = `${API_BASE}/bookings/slots?serviceId=${serviceId}&from=${from}&to=${to}`;
+    const url = apiUrl(
+      `/bookings/slots?serviceId=${serviceId}&from=${from}&to=${to}`,
+    );
 
     fetch(url, { headers: { Accept: "application/json" } })
       .then(async (res) => {
@@ -415,7 +522,7 @@ export default function BookingForm({ isOpen, onClose }: BookingFormProps) {
     return () => {
       cancelled = true;
     };
-  }, [isOpen, step, serviceId, dateRange, t]);
+  }, [isOpen, step, serviceId, dateRange, settings, t]);
 
   const availableDateSet = useMemo(() => {
     const set = new Set<string>();
@@ -437,11 +544,18 @@ export default function BookingForm({ isOpen, onClose }: BookingFormProps) {
 
   const handleSubmit = useCallback(async () => {
     if (!serviceId || !selectedSlot || !name.trim()) return;
+
+    // Backend off: nothing is sent anywhere, just show the success step.
+    if (!isBackendEnabled()) {
+      goTo("success");
+      return;
+    }
+
     setSubmitting(true);
     setSubmitError(null);
 
     try {
-      const res = await fetch(`${API_BASE}/bookings`, {
+      const res = await fetch(apiUrl("/bookings"), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

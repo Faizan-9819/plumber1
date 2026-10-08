@@ -4,6 +4,11 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import LanguageToggle from "../i18n/LanguageToggle";
 import { useLanguage } from "../i18n/LanguageProvider";
+import { isMultiLanguage } from "@/lib/i18n";
+import { SHOW_LANGUAGE_TOGGLE } from "@/settings";
+
+// Nothing to switch to on a single-language site, whatever the setting says.
+const showLanguageToggle = SHOW_LANGUAGE_TOGGLE && isMultiLanguage();
 
 const NAV_LINKS = [
   { en: "Home", nl: "Home", href: "#home" },
@@ -28,6 +33,19 @@ export default function Header() {
 
   return (
     <>
+      {/* Top promo bar — in normal flow, so it scrolls away with the page. */}
+      <div className="w-full bg-[#2d2d2d] flex items-center justify-between px-6 sm:px-12 py-2.5">
+        <span className="text-white text-sm sm:text-base font-semibold tracking-wide">
+          Get Growth Rocket
+        </span>
+        <button
+          type="button"
+          className="bg-[#8bc53f] hover:bg-[#7ab432] transition-colors text-white text-xs sm:text-sm font-semibold px-4 py-1.5 rounded cursor-pointer whitespace-nowrap"
+        >
+          Buy now
+        </button>
+      </div>
+
       <div className="bg-ink text-[13px] text-[#edededf2] hidden">
         <div className="fix flex flex-wrap items-center justify-between gap-4 py-[9px] md:block hidden">
           <div className="flex flex-wrap items-center gap-5">
@@ -86,14 +104,18 @@ export default function Header() {
               >
                 ✆ 020 123 4567
               </a>
-              <LanguageToggle className="hidden sm:inline-flex" />
+              {showLanguageToggle && (
+                <LanguageToggle className="hidden sm:inline-flex" />
+              )}
               <a
                 href="#booking"
                 className="bg-grad-cta hidden items-center gap-2 rounded-full px-5.5 py-3 text-[15px] font-bold text-white shadow-[0_10px_24px_-10px_rgba(71,107,222,0.55)] sm:inline-flex"
               >
                 {t({ en: "Book Appointment", nl: "Afspraak maken" })}
               </a>
-              <LanguageToggle className="inline-flex sm:hidden" />
+              {showLanguageToggle && (
+                <LanguageToggle className="inline-flex sm:hidden" />
+              )}
               <button
                 aria-label={t({ en: "Menu", nl: "Menu" })}
                 onClick={() => setMenuOpen((v) => !v)}
